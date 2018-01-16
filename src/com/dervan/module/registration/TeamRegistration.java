@@ -1,0 +1,137 @@
+package com.dervan.module.registration;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import com.dervan.module.model.dao.Game;
+import com.dervan.module.model.dao.Participant;
+import com.dervan.module.model.dao.PayRepDtl;
+import com.dervan.module.model.dao.ReceiptMaster;
+import com.dervan.module.model.dao.Team;
+import com.dervan.module.model.dao.TeamGame;
+import com.dervan.module.model.dao.TeamParti;
+import com.dervan.module.model.dao.TeamRecord;
+import com.dervan.module.util.dao.HibernateUtil;
+
+public class TeamRegistration {
+
+	
+	public static String getRegistered(TeamRecord record){
+		
+		// Initialization of Session Factory
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
+		
+		
+		// Get Participants from json
+		List<Participant> participantList = record.getParticipants();
+		
+		// Get Amount from json
+		int amount = record.getAmount();
+		
+		// Get Team data from json
+		Team teamData = record.getTeam();
+		session.save(teamData);
+		session.flush();
+		int teamId = teamData.getTeamId();
+		
+		
+		// Insert number of participants and collects the Part ID 
+		List<Integer> listOfPID = new ArrayList<>();
+		
+		for(Participant participant : participantList){
+			session.save(participant);
+			session.flush();
+			listOfPID.add(participant.getPartId());
+		}
+		
+		// Insert the partID with respect to team ID
+		for(Integer data : listOfPID){
+			TeamParti teamParti = new TeamParti();
+			teamParti.setPartId(data);
+			teamParti.setTeamId(teamId);
+			session.save(teamParti);
+			teamParti = null;
+		}
+		
+		
+		
+		// Get game details and insert them 
+		List<TeamGame> teamGame = getTeamGameDtls(record, teamId);
+		for(TeamGame partiGameData : teamGame){
+			session.save(partiGameData);
+		}
+		
+		// Get the receipt number and update its flag to Y
+		ReceiptMaster master = getReceipt(session, teamId);
+		PayRepDtl dtls = getPaymentDtls(session, master, amount, teamId);
+		session.save(dtls);
+		
+		
+		tx.commit();
+		session.close();	
+		
+		return String.valueOf(teamId);
+	}
+	
+	public static PayRepDtl getPaymentDtls(Session session, ReceiptMaster master, int amount, int partId){
+		session.clear();
+		PayRepDtl details = null;
+		
+		if(master != null){
+			details = new PayRepDtl();
+			details.setPayAmt(amount);
+			details.setPartTeamId(partId);
+			details.setReceiptNbr(master.getReceiptNbr());
+		}
+		
+		return details;
+		
+	
+	}
+	
+	
+	public static List<TeamGame> getTeamGameDtls(TeamRecord record, int teamId){
+		
+		List<TeamGame> teamGame = new ArrayList<>();
+		List<TeamGame> games = record.getGames();
+		
+		for(TeamGame game : games){
+			TeamGame teamGameTemp = new TeamGame();
+			teamGameTemp.setTeamId(teamId);
+			teamGameTemp.setGameId(game.getGameId());
+			teamGame.add(teamGameTemp);
+			teamGameTemp = null;
+		}
+		
+		return teamGame;
+
+	}
+	
+	
+	public static ReceiptMaster getReceipt(Session session, int teamID){
+		session.clear();
+		
+		String sql = "From ReceiptMaster as receiptMaster where receiptMaster.assignedFlg = 'N'";
+		Query query = session.createQuery(sql);
+		query.setMaxResults(1);
+		List<ReceiptMaster> master = query.list();
+		
+		ReceiptMaster data = (ReceiptMaster)master.get(0);
+		
+		Query query1 = session.createSQLQuery("UPDATE RECEIPT_MASTER SET ASSIGNED_FLG= :FLAG, ASSIGNED_PART_ID= :PID WHERE RECEIPT_NBR  = :RCTNO")
+		.setParameter("FLAG", 'Y')
+		.setParameter("PID", teamID)
+		.setParameter("RCTNO", data.getReceiptNbr());
+		
+		query1.executeUpdate();
+		return data;
+	}
+
+	
+
+}
