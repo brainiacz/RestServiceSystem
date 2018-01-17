@@ -1,9 +1,16 @@
 package com.dervan.module.model.dao;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -43,7 +50,7 @@ public class Team implements Serializable {
 	private String teamSchoolCity;
 
 	@Column(name="TEAM_SCHOOL_PINCODE")
-	private BigDecimal teamSchoolPincode;
+	private int teamSchoolPincode;
 
 	@Column(name="TEAM_SCHOOL_STATE")
 	private String teamSchoolState;
@@ -122,11 +129,11 @@ public class Team implements Serializable {
 		this.teamSchoolCity = teamSchoolCity;
 	}
 
-	public BigDecimal getTeamSchoolPincode() {
+	public int getTeamSchoolPincode() {
 		return this.teamSchoolPincode;
 	}
 
-	public void setTeamSchoolPincode(BigDecimal teamSchoolPincode) {
+	public void setTeamSchoolPincode(int teamSchoolPincode) {
 		this.teamSchoolPincode = teamSchoolPincode;
 	}
 
