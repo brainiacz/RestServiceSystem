@@ -61,6 +61,10 @@ public class Team implements Serializable {
 
 	@Column(name="UPDATE_USER_NAME")
 	private String updateUserName;
+	
+	@Column(name="CAPTAIN_PART_ID")
+	private int captainPartId;
+	
 
 	public Team() {
 	}
@@ -160,5 +164,21 @@ public class Team implements Serializable {
 	public void setUpdateUserName(String updateUserName) {
 		this.updateUserName = updateUserName;
 	}
+
+	/**
+	 * @return the captainPartId
+	 */
+	public int getCaptainPartId() {
+		return captainPartId;
+	}
+
+	/**
+	 * @param captainPartId the captainPartId to set
+	 */
+	public void setCaptainPartId(int captainPartId) {
+		this.captainPartId = captainPartId;
+	}
+	
+	
 
 }

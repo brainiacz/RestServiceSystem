@@ -26,6 +26,11 @@ public class TeamRegistration {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();
 		
+		// Get Captain from JSON 
+		Participant captain = record.getCaptain();
+		session.save(captain);
+		session.flush();
+		int captainID = captain.getPartId();
 		
 		// Get Participants from json
 		List<Participant> participantList = record.getParticipants();
@@ -35,6 +40,8 @@ public class TeamRegistration {
 		
 		// Get Team data from json
 		Team teamData = record.getTeam();
+		//Set CaptainID to team entity
+		teamData.setCaptainPartId(captainID);
 		session.save(teamData);
 		session.flush();
 		int teamId = teamData.getTeamId();
@@ -75,7 +82,7 @@ public class TeamRegistration {
 		tx.commit();
 		session.close();	
 		
-		return String.valueOf(teamId);
+		return String.valueOf(captainID);
 	}
 	
 	public static PayRepDtl getPaymentDtls(Session session, ReceiptMaster master, int amount, int partId){

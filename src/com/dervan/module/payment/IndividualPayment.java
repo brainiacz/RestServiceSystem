@@ -20,8 +20,7 @@ public class IndividualPayment {
 	
 	public static Participant getParticipant(int partId, Session session, Transaction transaction){
 		
-	
-		SQLQuery query = session.createSQLQuery("SELECT * from Participant where part_id = "+partId+"");
+		SQLQuery query = session.createSQLQuery("SELECT * FROM PARTICIPANT WHERE PART_ID = "+partId+"");
 		List<Object[]> dataList = query.list();
 		
 		Participant participant = new Participant();
@@ -60,7 +59,7 @@ public class IndividualPayment {
 	
 	public static PayRepDtl getPaymentDetails(int partId, Session session, Transaction transaction){
 		
-		SQLQuery query2 = session.createSQLQuery("SELECT * from Pay_Rep_Dtls where part_team_id = "+partId+"");
+		SQLQuery query2 = session.createSQLQuery("SELECT * FROM PAY_REP_DTLS WHERE PART_TEAM_ID = "+partId+"");
 		List<Object[]> dataList = query2.list();
 		
 		PayRepDtl dtls = new PayRepDtl();
@@ -79,7 +78,7 @@ public class IndividualPayment {
 	
 	public static List<PartiGame> getPartiGameData(int partId, Session session, Transaction transaction){
 		
-		SQLQuery query1 = session.createSQLQuery("SELECT * from Parti_Game where part_id = "+partId+"");
+		SQLQuery query1 = session.createSQLQuery("SELECT * FROM PARTI_GAME WHERE PART_ID = "+partId+"");
 		List<Object[]> dataList = query1.list();
 		
 		List<PartiGame> partiGameData  = new ArrayList<>();
@@ -104,7 +103,7 @@ public class IndividualPayment {
 		
 		Session session  = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();
-		Query query1 = session.createSQLQuery("UPDATE pay_rep_dtls SET PAY_FLAG= :PAYFLAG , REPORTED_FLG = :REPOFLAG WHERE PART_TEAM_ID  = :PARTID");
+		Query query1 = session.createSQLQuery("UPDATE PAY_REP_DTLS SET PAY_FLAG= :PAYFLAG , REPORTED_FLG = :REPOFLAG WHERE PART_TEAM_ID  = :PARTID");
 		query1.setParameter("PAYFLAG","Y");
 		query1.setParameter("REPOFLAG","Y");
 		query1.setParameter("PARTID", partid);

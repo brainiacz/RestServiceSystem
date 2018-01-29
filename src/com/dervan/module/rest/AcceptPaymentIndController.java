@@ -18,9 +18,7 @@ public class AcceptPaymentIndController {
 	@Produces(MediaType.APPLICATION_JSON)
 	
 	public Map<String, Object> getSuccessForPay(Map<String, Integer> inputData){
-		
 		Map<String, Object> mapData = IndividualPayment.getPayment(inputData.get("partID"));
-		
 		return mapData;
 	}
 }

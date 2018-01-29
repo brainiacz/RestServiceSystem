@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.dervan.module.model.dao.Participant;
 import com.dervan.module.model.dao.PayRepDtl;
 import com.dervan.module.model.dao.Team;
 import com.dervan.module.model.dao.TeamGame;
@@ -36,16 +37,21 @@ public  Map<String, Object> getPaymentUpdated(Map<String, Integer> inputData){
 		Team teamData = null;
 		PayRepDtl payData = null;
 		List<TeamGame> teamGameData = null;
-		
+		Participant captainData = null;
+		List<Participant> participantDataList = null;
 		if(inputData != null){
 			
 			
-			teamData = TeamPayment.getTeamData(inputData.get("teamId"), session, tx);
-			payData = TeamPayment.getPaymentDetails(inputData.get("teamId"), session, tx);
-			teamGameData = TeamPayment.getTeamGameData(inputData.get("teamId"), session, tx);
+			teamData = TeamPayment.getTeamData(inputData.get("captainID"), session, tx);
+			payData = TeamPayment.getPaymentDetails(inputData.get("captainID"), session, tx);
+			teamGameData = TeamPayment.getTeamGameData(inputData.get("captainID"), session, tx);
+			captainData = TeamPayment.getCaptainData(inputData.get("captainID"), session, tx);
+			participantDataList = TeamPayment.getParticipantsData(inputData.get("captainID"), session, tx);
 		}
 		
-		data.put("participant", teamData);
+		data.put("team", teamData);
+		data.put("captain", captainData);
+		data.put("participants", participantDataList);
 		data.put("payData", payData);
 		data.put("partiGame",teamGameData);
 		

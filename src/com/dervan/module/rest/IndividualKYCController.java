@@ -11,22 +11,21 @@ import javax.ws.rs.core.MediaType;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import com.dervan.module.payment.TeamPayment;
+import com.dervan.module.kyc.IndividualKycCheck;
 import com.dervan.module.util.dao.HibernateUtil;
 
-@Path("/acceptTeamPay")
-public class AcceptPaymentTeamController {
-
+@Path("/indKycCheck")
+public class IndividualKYCController {
+	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	
-	public Map<String, Object> getSuccessForPay(Map<String, Integer> inputData){
-		Session session  = HibernateUtil.getSessionFactory().openSession();
+	public static Map<String, Object> getKycCheckIndController(Map<String, Integer> inputData){
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();
-		Map<String, Object> mapData = TeamPayment.getPayment(TeamPayment.getTeamData(inputData.get("captainID"), session, tx).getTeamId());		
+		Map<String, Object> mapData = IndividualKycCheck
+				.getKycCheck(inputData.get("partID"), session, tx);
 		return mapData;
 	}
 
-	
 }

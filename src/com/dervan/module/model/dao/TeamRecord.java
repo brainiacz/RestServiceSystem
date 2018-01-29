@@ -11,6 +11,7 @@ public class TeamRecord implements Serializable{
 
 	private static final long serialVersionUID = -8521612986302162578L;
 	
+	private Participant captain;
 	private List<Participant> participants;
 	private List<TeamGame> games;
 	private Team team;
@@ -18,6 +19,20 @@ public class TeamRecord implements Serializable{
 	private String selectionMode;
 	
 	
+	
+	
+	/**
+	 * @return the captain
+	 */
+	public Participant getCaptain() {
+		return captain;
+	}
+	/**
+	 * @param captain the captain to set
+	 */
+	public void setCaptain(Participant captain) {
+		this.captain = captain;
+	}
 	/**
 	 * @return the selectionMode
 	 */
