@@ -16,7 +16,7 @@ public class ReceiptMaster implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="ASSIGNED_DT")
+	@Column(name="ASSIGNED_DT", insertable=false)
 	private Date assignedDt;
 
 	@Column(name="ASSIGNED_FLG")

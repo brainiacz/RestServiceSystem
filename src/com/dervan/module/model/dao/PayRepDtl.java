@@ -1,8 +1,15 @@
 package com.dervan.module.model.dao;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 /**
@@ -44,7 +51,7 @@ public class PayRepDtl implements Serializable {
 	@Column(name="RECEIPT_NBR")
 	private int receiptNbr;
 
-	@Column(name="REPORT_USR")
+	@Column(name="REPORT_USR", insertable=false)
 	private String reportUsr;
 
 	@Temporal(TemporalType.DATE)

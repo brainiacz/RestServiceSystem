@@ -28,11 +28,11 @@ public class MasterCode implements Serializable {
 	private String codeType;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="INSERT_DATE_TIME")
+	@Column(name="INSERT_DATE_TIME", insertable=false)
 	private Date insertDateTime;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="UPDATE_DATE_TIME")
+	@Column(name="UPDATE_DATE_TIME", insertable=false)
 	private Date updateDateTime;
 
 	private String value;

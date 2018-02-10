@@ -21,7 +21,7 @@ public class TeamRegistrationController {
 	public  Map<String, String> getTeamRecordData(TeamRecord record) {
 		
 		Map<String, String> data = new HashMap<>();
-		String partId = TeamRegistration.getRegistered(record);
+		String partId = TeamRegistration.getRegistered(record.getRecord());
 		data.put("captainID", partId);
 		
 		return data;

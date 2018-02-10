@@ -7,39 +7,38 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import com.dervan.module.model.dao.Game;
 import com.dervan.module.model.dao.Participant;
 import com.dervan.module.model.dao.PayRepDtl;
 import com.dervan.module.model.dao.ReceiptMaster;
 import com.dervan.module.model.dao.Team;
 import com.dervan.module.model.dao.TeamGame;
 import com.dervan.module.model.dao.TeamParti;
-import com.dervan.module.model.dao.TeamRecord;
+import com.dervan.module.model.dao.TeamRecordInner;
 import com.dervan.module.util.dao.HibernateUtil;
 
 public class TeamRegistration {
 
 	
-	public static String getRegistered(TeamRecord record){
+	public static String getRegistered(TeamRecordInner record){
 		
 		// Initialization of Session Factory
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();
 		
 		// Get Captain from JSON 
-		Participant captain = record.getCaptain();
+		Participant captain = record.getPartidetails();
 		session.save(captain);
 		session.flush();
 		int captainID = captain.getPartId();
 		
 		// Get Participants from json
-		List<Participant> participantList = record.getParticipants();
+		List<Participant> participantList = record.getTm();
 		
 		// Get Amount from json
-		int amount = record.getAmount();
+		int amount = record.getAmt();
 		
 		// Get Team data from json
-		Team teamData = record.getTeam();
+		Team teamData = getTeamGameData(record);
 		//Set CaptainID to team entity
 		teamData.setCaptainPartId(captainID);
 		session.save(teamData);
@@ -94,6 +93,10 @@ public class TeamRegistration {
 			details.setPayAmt(amount);
 			details.setPartTeamId(partId);
 			details.setReceiptNbr(master.getReceiptNbr());
+			details.setPayFlag("N");
+			details.setKycCheck("N");
+			details.setPayUsr("Dervan");
+			details.setReportedFlg("Y");
 		}
 		
 		return details;
@@ -102,7 +105,7 @@ public class TeamRegistration {
 	}
 	
 	
-	public static List<TeamGame> getTeamGameDtls(TeamRecord record, int teamId){
+	public static List<TeamGame> getTeamGameDtls(TeamRecordInner record, int teamId){
 		
 		List<TeamGame> teamGame = new ArrayList<>();
 		List<TeamGame> games = record.getGames();
@@ -140,5 +143,16 @@ public class TeamRegistration {
 	}
 
 	
+	public static Team getTeamGameData(TeamRecordInner record){
+		Team data = new Team();
+		data.setTeamSchool(record.getPartidetails().getNameOfSchoolOrClub());
+		data.setTeamSchoolAdd1(record.getPartidetails().getAddressOfSchoolOrClub());
+		data.setTeamSchoolAdd2(record.getPartidetails().getAddress2OfSchoolOrClub());
+		data.setTeamSchoolCity(record.getPartidetails().getSchoolcity());
+		data.setTeamSchoolPincode(record.getPartidetails().getSchoolpincode());
+		data.setTeamSchoolState(record.getPartidetails().getSchoolstate());
+
+		return data;
+	}
 
 }

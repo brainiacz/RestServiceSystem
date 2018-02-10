@@ -3,13 +3,13 @@ import java.util.List;
 
 import com.dervan.module.model.dao.Game;
 import com.dervan.module.model.dao.Participant;
-import com.dervan.module.model.dao.Record;
+import com.dervan.module.model.dao.RecordInner;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class RegistrationTest {
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) {/*
 		
 		ObjectMapper obj = new ObjectMapper();
 		
@@ -27,7 +27,7 @@ public class RegistrationTest {
 		
 
 		
-		Record rec = new Record();
+		RecordInner rec = new RecordInner();
 		Participant part = new Participant();
 		part.setBloodGrp("A+");
 		
@@ -40,5 +40,5 @@ public class RegistrationTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+	*/}
 }

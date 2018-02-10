@@ -1,6 +1,8 @@
 package com.dervan.module.payment;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,29 +29,29 @@ public class IndividualPayment {
 		
 		for(Object[] row : dataList ){
 			participant.setPartId(null != row[0] ? Integer.parseInt(row[0].toString()) : -1);
-			participant.setFname(null != row[1] ? row[1].toString() : "");
-			participant.setMname(null != row[2] ? row[2].toString() : "");
-			participant.setLname(null != row[3] ? row[3].toString() : "");
+			participant.setFirstname(null != row[1] ? row[1].toString() : "");
+			participant.setMiddlename(null != row[2] ? row[2].toString() : "");
+			participant.setLastname(null != row[3] ? row[3].toString() : "");
 			participant.setDob(null != row[4] ? row[4].toString() : "");
 			participant.setAge(null != row[5] ? Integer.parseInt(row[5].toString()) : -1);
-			participant.setSchool(null != row[6] ? row[6].toString() : "");
-			participant.setAddressLine1(null != row[7] ? row[7].toString() : "");
-			participant.setAddressLine2(null != row[8] ? row[8].toString() : "");
+			participant.setNameOfSchoolOrClub(null != row[6] ? row[6].toString() : "");
+			participant.setAddr1(null != row[7] ? row[7].toString() : "");
+			participant.setAddr2(null != row[8] ? row[8].toString() : "");
 			participant.setState(null != row[9] ? row[9].toString() : "");
 			participant.setCity(null != row[10] ? row[10].toString() : "");
 			participant.setPincode(null != row[11] ? Integer.parseInt(row[11].toString()) : -1);
-			participant.setSchoolAddressLine1(null != row[12] ? row[12].toString() : "");
-			participant.setSchoolAddressLine2(null != row[13] ? row[13].toString() : "");
-			participant.setSchoolState(null != row[14] ? row[14].toString() : "");
-			participant.setSchoolCity(null != row[15] ? row[15].toString() : "");
-			participant.setSchoolPincode(null != row[16] ? Integer.parseInt(row[16].toString()) : -1);
+			participant.setAddressOfSchoolOrClub(null != row[12] ? row[12].toString() : "");
+			participant.setAddress2OfSchoolOrClub(null != row[13] ? row[13].toString() : "");
+			participant.setSchoolstate(null != row[14] ? row[14].toString() : "");
+			participant.setSchoolcity(null != row[15] ? row[15].toString() : "");
+			participant.setSchoolpincode(null != row[16] ? Integer.parseInt(row[16].toString()) : -1);
 			participant.setGender(null != row[17] ? row[17].toString() : "");
-			participant.setPhone(null != row[18] ? row[18].toString() : "");
-			participant.setEmerPhone(null != row[19] ? row[19].toString() : "");
-			participant.setEmailId(null != row[20] ? row[20].toString() : "");
-			participant.setBloodGrp(null != row[21] ? row[21].toString() : "");
-			participant.setIdType(null != row[22] ? row[22].toString() : "");
-			participant.setIdInt(null != row[23] ? row[23].toString() : "");
+			participant.setContactno(null != row[18] ? row[18].toString() : "");
+			participant.setAlternativeno(null != row[19] ? row[19].toString() : "");
+			participant.setEmail(null != row[20] ? row[20].toString() : "");
+			participant.setBloodgroup(null != row[21] ? row[21].toString() : "");
+			participant.setIdentitytype(null != row[22] ? row[22].toString() : "");
+			participant.setIdentitynumber(null != row[23] ? row[23].toString() : "");
 			
 			break;
 		}
@@ -103,11 +105,11 @@ public class IndividualPayment {
 		
 		Session session  = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();
-		Query query1 = session.createSQLQuery("UPDATE PAY_REP_DTLS SET PAY_FLAG= :PAYFLAG , REPORTED_FLG = :REPOFLAG WHERE PART_TEAM_ID  = :PARTID");
+		Query query1 = session.createSQLQuery("UPDATE PAY_REP_DTLS SET PAY_FLAG= :PAYFLAG , REPORTED_FLG = :REPOFLAG, PAY_DT = :PAYDT WHERE PART_TEAM_ID  = :PARTID");
 		query1.setParameter("PAYFLAG","Y");
 		query1.setParameter("REPOFLAG","Y");
 		query1.setParameter("PARTID", partid);
-		
+		query1.setParameter("PAYDT", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 		int result = query1.executeUpdate();
 		
 		if(result > 0){

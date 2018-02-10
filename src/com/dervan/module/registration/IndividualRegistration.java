@@ -1,30 +1,31 @@
 package com.dervan.module.registration;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Query;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.DetachedCriteria;
 
 import com.dervan.module.model.dao.Game;
 import com.dervan.module.model.dao.PartiGame;
 import com.dervan.module.model.dao.Participant;
 import com.dervan.module.model.dao.PayRepDtl;
 import com.dervan.module.model.dao.ReceiptMaster;
-import com.dervan.module.model.dao.Record;
+import com.dervan.module.model.dao.RecordInner;
 import com.dervan.module.util.dao.HibernateUtil;
+import com.fasterxml.jackson.databind.module.SimpleAbstractTypeResolver;
 
 public class IndividualRegistration {
 	
-	public static String getRegistered(Record record){
+	public static String getRegistered(RecordInner record){
 		
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();
-		Participant participant = record.getParticipant();
-		int amount = Integer.parseInt(record.getAmount());
+		Participant participant = record.getPartidetails();
+		int amount = Integer.parseInt(record.getAmt());
 		
 		session.save(participant);
 		session.flush();
@@ -57,6 +58,11 @@ public class IndividualRegistration {
 			details.setPayAmt(amount);
 			details.setPartTeamId(partId);
 			details.setReceiptNbr(master.getReceiptNbr());
+			details.setPayFlag("N");
+			details.setKycCheck("N");
+			details.setPayUsr("Dervan");
+			details.setReportedFlg("Y");
+			details.setReportedDt(new Date());
 		}
 		
 		return details;
@@ -65,7 +71,7 @@ public class IndividualRegistration {
 	}
 	
 	
-	public static List<PartiGame> getPartiGameDtls(Record record, int partId){
+	public static List<PartiGame> getPartiGameDtls(RecordInner record, int partId){
 		
 		List<PartiGame> partiGame = new ArrayList<>();
 		List<Game> games = record.getGames();
@@ -73,8 +79,7 @@ public class IndividualRegistration {
 		for(Game game : games){
 			PartiGame partiGameTemp = new PartiGame();
 			partiGameTemp.setPartId(partId);
-			partiGameTemp.setPartiGameId(game.getGameId());
-			partiGameTemp.setGameId(game.getGameId());
+			partiGameTemp.setGameId(game.getEventid());
 			partiGame.add(partiGameTemp);
 			partiGameTemp = null;
 		}

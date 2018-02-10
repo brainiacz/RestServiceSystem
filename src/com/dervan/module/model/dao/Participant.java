@@ -33,16 +33,16 @@ public class Participant implements Serializable {
 	private int partId;
 
 	@Column(name="ADDRESS_LINE1")
-	private String addressLine1;
+	private String addr1;
 
 	@Column(name="ADDRESS_LINE2")
-	private String addressLine2;
+	private String addr2;
 	
 	@Column(name="AGE")
 	private int age;
 	
 	@Column(name="BLOOD_GRP")
-	private String bloodGrp;
+	private String bloodgroup;
 
 	@Column(name="CITY")
 	private String city;
@@ -51,294 +51,391 @@ public class Participant implements Serializable {
 	private String dob;
 
 	@Column(name="EMAIL_ID")
-	private String emailId;
+	private String email;
 
 	@Column(name="EMER_PHONE")
-	private String emerPhone;
+	private String alternativeno;
 	
 	@Column(name="FNAME")
-	private String fname;
+	private String firstname;
 
 	@Column(name="GENDER")
 	private String gender;
 
 	@Column(name="ID_INT")
-	private String idInt;
+	private String identitynumber;
 
 	@Column(name="ID_TYPE")
-	private String idType;
+	private String identitytype;
 
 	@Column(name="LNAME")
-	private String lname;
+	private String lastname;
 
 	@Column(name="MNAME")
-	private String mname;
+	private String middlename;
 
 	@Column(name="PHONE")
-	private String phone;
+	private String contactno;
 
 	@Column(name="PINCODE")
 	private int pincode;
 
 	@Column(name="SCHOOL")
-	private String school;
+	private String nameOfSchoolOrClub;
 
 	@Column(name="SCHOOL_ADDRESS_LINE1")
-	private String schoolAddressLine1;
+	private String addressOfSchoolOrClub;
 
 	@Column(name="SCHOOL_ADDRESS_LINE2")
-	private String schoolAddressLine2;
+	private String address2OfSchoolOrClub;
 
 	@Column(name="SCHOOL_CITY")
-	private String schoolCity;
+	private String schoolcity;
 
 	@Column(name="SCHOOL_PINCODE")
-	private int schoolPincode;
+	private int schoolpincode;
 
 	@Column(name="SCHOOL_STATE")
-	private String schoolState;
+	private String schoolstate;
 
 	@Column(name="STATE")
 	private String state;
 
-	
-	public Participant( int partId, String addressLine1, String addressLine2, int age, String bloodGrp, String city,
-			String dob, String emailId, String emerPhone, String fname, String gender, String idInt, String idType,
-			String lname, String mname, String phone, int pincode, String school, String schoolAddressLine1,
-			String schoolAddressLine2, String schoolCity, int schoolPincode, String schoolState, String state) {
-		super();
-		this.partId = partId;
-		this.addressLine1 = addressLine1;
-		this.addressLine2 = addressLine2;
-		this.age = age;
-		this.bloodGrp = bloodGrp;
-		this.city = city;
-		this.dob = dob;
-		this.emailId = emailId;
-		this.emerPhone = emerPhone;
-		this.fname = fname;
-		this.gender = gender;
-		this.idInt = idInt;
-		this.idType = idType;
-		this.lname = lname;
-		this.mname = mname;
-		this.phone = phone;
-		this.pincode = pincode;
-		this.school = school;
-		this.schoolAddressLine1 = schoolAddressLine1;
-		this.schoolAddressLine2 = schoolAddressLine2;
-		this.schoolCity = schoolCity;
-		this.schoolPincode = schoolPincode;
-		this.schoolState = schoolState;
-		this.state = state;
-	}
-
-	public Participant() {
-	}
-
+	/**
+	 * @return the partId
+	 */
 	public int getPartId() {
-		return this.partId;
+		return partId;
 	}
 
+	/**
+	 * @param partId the partId to set
+	 */
 	public void setPartId(int partId) {
 		this.partId = partId;
 	}
 
-	public String getAddressLine1() {
-		return this.addressLine1;
+	/**
+	 * @return the addr1
+	 */
+	public String getAddr1() {
+		return addr1;
 	}
 
-	public void setAddressLine1(String addressLine1) {
-		this.addressLine1 = addressLine1;
+	/**
+	 * @param addr1 the addr1 to set
+	 */
+	public void setAddr1(String addr1) {
+		this.addr1 = addr1;
 	}
 
-	public String getAddressLine2() {
-		return this.addressLine2;
+	/**
+	 * @return the addr2
+	 */
+	public String getAddr2() {
+		return addr2;
 	}
 
-	public void setAddressLine2(String addressLine2) {
-		this.addressLine2 = addressLine2;
+	/**
+	 * @param addr2 the addr2 to set
+	 */
+	public void setAddr2(String addr2) {
+		this.addr2 = addr2;
 	}
 
+	/**
+	 * @return the age
+	 */
 	public int getAge() {
-		return this.age;
+		return age;
 	}
 
+	/**
+	 * @param age the age to set
+	 */
 	public void setAge(int age) {
 		this.age = age;
 	}
 
-	public String getBloodGrp() {
-		return this.bloodGrp;
+	/**
+	 * @return the bloodgroup
+	 */
+	public String getBloodgroup() {
+		return bloodgroup;
 	}
 
-	public void setBloodGrp(String bloodGrp) {
-		this.bloodGrp = bloodGrp;
+	/**
+	 * @param bloodgroup the bloodgroup to set
+	 */
+	public void setBloodgroup(String bloodgroup) {
+		this.bloodgroup = bloodgroup;
 	}
 
+	/**
+	 * @return the city
+	 */
 	public String getCity() {
-		return this.city;
+		return city;
 	}
 
+	/**
+	 * @param city the city to set
+	 */
 	public void setCity(String city) {
 		this.city = city;
 	}
-	
-	
-	public String getDob() {
-		return this.dob;
-	}
-	
 
+	/**
+	 * @return the dob
+	 */
+	public String getDob() {
+		return dob;
+	}
+
+	/**
+	 * @param dob the dob to set
+	 */
 	public void setDob(String dob) {
 		this.dob = dob;
 	}
 
-	public String getEmailId() {
-		return this.emailId;
+	/**
+	 * @return the email
+	 */
+	public String getEmail() {
+		return email;
 	}
 
-	public void setEmailId(String emailId) {
-		this.emailId = emailId;
+	/**
+	 * @param email the email to set
+	 */
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public String getEmerPhone() {
-		return this.emerPhone;
+	/**
+	 * @return the alternativeno
+	 */
+	public String getAlternativeno() {
+		return alternativeno;
 	}
 
-	public void setEmerPhone(String emerPhone) {
-		this.emerPhone = emerPhone;
+	/**
+	 * @param alternativeno the alternativeno to set
+	 */
+	public void setAlternativeno(String alternativeno) {
+		this.alternativeno = alternativeno;
 	}
 
-	public String getFname() {
-		return this.fname;
+	/**
+	 * @return the firstname
+	 */
+	public String getFirstname() {
+		return firstname;
 	}
 
-	public void setFname(String fname) {
-		this.fname = fname;
+	/**
+	 * @param firstname the firstname to set
+	 */
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
 
+	/**
+	 * @return the gender
+	 */
 	public String getGender() {
-		return this.gender;
+		return gender;
 	}
 
+	/**
+	 * @param gender the gender to set
+	 */
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
 
-	public String getIdInt() {
-		return this.idInt;
+	/**
+	 * @return the identitynumber
+	 */
+	public String getIdentitynumber() {
+		return identitynumber;
 	}
 
-	public void setIdInt(String idInt) {
-		this.idInt = idInt;
+	/**
+	 * @param identitynumber the identitynumber to set
+	 */
+	public void setIdentitynumber(String identitynumber) {
+		this.identitynumber = identitynumber;
 	}
 
-	public String getIdType() {
-		return this.idType;
+	/**
+	 * @return the identitytype
+	 */
+	public String getIdentitytype() {
+		return identitytype;
 	}
 
-	public void setIdType(String idType) {
-		this.idType = idType;
+	/**
+	 * @param identitytype the identitytype to set
+	 */
+	public void setIdentitytype(String identitytype) {
+		this.identitytype = identitytype;
 	}
 
-	public String getLname() {
-		return this.lname;
+	/**
+	 * @return the lastname
+	 */
+	public String getLastname() {
+		return lastname;
 	}
 
-	public void setLname(String lname) {
-		this.lname = lname;
+	/**
+	 * @param lastname the lastname to set
+	 */
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 
-	public String getMname() {
-		return this.mname;
+	/**
+	 * @return the middlename
+	 */
+	public String getMiddlename() {
+		return middlename;
 	}
 
-	public void setMname(String mname) {
-		this.mname = mname;
+	/**
+	 * @param middlename the middlename to set
+	 */
+	public void setMiddlename(String middlename) {
+		this.middlename = middlename;
 	}
 
-	public String getPhone() {
-		return this.phone;
+	/**
+	 * @return the contactno
+	 */
+	public String getContactno() {
+		return contactno;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	/**
+	 * @param contactno the contactno to set
+	 */
+	public void setContactno(String contactno) {
+		this.contactno = contactno;
 	}
 
+	/**
+	 * @return the pincode
+	 */
 	public int getPincode() {
-		return this.pincode;
+		return pincode;
 	}
 
+	/**
+	 * @param pincode the pincode to set
+	 */
 	public void setPincode(int pincode) {
 		this.pincode = pincode;
 	}
 
-	public String getSchool() {
-		return this.school;
+	/**
+	 * @return the nameOfSchoolOrClub
+	 */
+	public String getNameOfSchoolOrClub() {
+		return nameOfSchoolOrClub;
 	}
 
-	public void setSchool(String school) {
-		this.school = school;
+	/**
+	 * @param nameOfSchoolOrClub the nameOfSchoolOrClub to set
+	 */
+	public void setNameOfSchoolOrClub(String nameOfSchoolOrClub) {
+		this.nameOfSchoolOrClub = nameOfSchoolOrClub;
 	}
 
-	public String getSchoolAddressLine1() {
-		return this.schoolAddressLine1;
+	/**
+	 * @return the addressOfSchoolOrClub
+	 */
+	public String getAddressOfSchoolOrClub() {
+		return addressOfSchoolOrClub;
 	}
 
-	public void setSchoolAddressLine1(String schoolAddressLine1) {
-		this.schoolAddressLine1 = schoolAddressLine1;
+	/**
+	 * @param addressOfSchoolOrClub the addressOfSchoolOrClub to set
+	 */
+	public void setAddressOfSchoolOrClub(String addressOfSchoolOrClub) {
+		this.addressOfSchoolOrClub = addressOfSchoolOrClub;
 	}
 
-	public String getSchoolAddressLine2() {
-		return this.schoolAddressLine2;
+	/**
+	 * @return the address2OfSchoolOrClub
+	 */
+	public String getAddress2OfSchoolOrClub() {
+		return address2OfSchoolOrClub;
 	}
 
-	public void setSchoolAddressLine2(String schoolAddressLine2) {
-		this.schoolAddressLine2 = schoolAddressLine2;
+	/**
+	 * @param address2OfSchoolOrClub the address2OfSchoolOrClub to set
+	 */
+	public void setAddress2OfSchoolOrClub(String address2OfSchoolOrClub) {
+		this.address2OfSchoolOrClub = address2OfSchoolOrClub;
 	}
 
-	public String getSchoolCity() {
-		return this.schoolCity;
+	/**
+	 * @return the schoolcity
+	 */
+	public String getSchoolcity() {
+		return schoolcity;
 	}
 
-	public void setSchoolCity(String schoolCity) {
-		this.schoolCity = schoolCity;
+	/**
+	 * @param schoolcity the schoolcity to set
+	 */
+	public void setSchoolcity(String schoolcity) {
+		this.schoolcity = schoolcity;
 	}
 
-	public int getSchoolPincode() {
-		return this.schoolPincode;
+	/**
+	 * @return the schoolpincode
+	 */
+	public int getSchoolpincode() {
+		return schoolpincode;
 	}
 
-	public void setSchoolPincode(int schoolPincode) {
-		this.schoolPincode = schoolPincode;
+	/**
+	 * @param schoolpincode the schoolpincode to set
+	 */
+	public void setSchoolpincode(int schoolpincode) {
+		this.schoolpincode = schoolpincode;
 	}
 
-	public String getSchoolState() {
-		return this.schoolState;
+	/**
+	 * @return the schoolstate
+	 */
+	public String getSchoolstate() {
+		return schoolstate;
 	}
 
-	public void setSchoolState(String schoolState) {
-		this.schoolState = schoolState;
+	/**
+	 * @param schoolstate the schoolstate to set
+	 */
+	public void setSchoolstate(String schoolstate) {
+		this.schoolstate = schoolstate;
 	}
 
+	/**
+	 * @return the state
+	 */
 	public String getState() {
-		return this.state;
+		return state;
 	}
 
+	/**
+	 * @param state the state to set
+	 */
 	public void setState(String state) {
 		this.state = state;
 	}
 
-	@Override
-	public String toString() {
-		return "{partId=" + partId + ", addressLine1=" + addressLine1 + ", addressLine2=" + addressLine2
-				+ ", age=" + age + ", bloodGrp=" + bloodGrp + ", city=" + city + ", dob=" + dob + ", emailId=" + emailId
-				+ ", emerPhone=" + emerPhone + ", fname=" + fname + ", gender=" + gender + ", idInt=" + idInt
-				+ ", idType=" + idType + ", lname=" + lname + ", mname=" + mname + ", phone=" + phone + ", pincode="
-				+ pincode + ", school=" + school + ", schoolAddressLine1=" + schoolAddressLine1
-				+ ", schoolAddressLine2=" + schoolAddressLine2 + ", schoolCity=" + schoolCity + ", schoolPincode="
-				+ schoolPincode + ", schoolState=" + schoolState + ", state=" + state + "}";
-	}
-	
+		
 }

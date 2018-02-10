@@ -27,10 +27,10 @@ public class Game implements Serializable {
 
 	@Id
 	@Column(name="GAME_ID")
-	private int gameId;
+	private int eventid;
 
 	@Column(name="AGE_GRP")
-	private String ageGrp;
+	private String minage;
 
 	private String category;
 
@@ -42,12 +42,12 @@ public class Game implements Serializable {
 	@Column(name="DATE_TO")
 	private Date dateTo;
 
-	private String discipline;
+	private String name;
 
-	private String event;
+	private String text;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="INSERT_DATE_TIME")
+	@Column(name="INSERT_DATE_TIME", insertable=false)
 	private Date insertDateTime;
 
 	@Column(name="INSERT_USER_NAME")
@@ -56,7 +56,7 @@ public class Game implements Serializable {
 	private String type;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="UPDATE_DATE_TIME")
+	@Column(name="UPDATE_DATE_TIME", insertable=false)
 	private Date updateDateTime;
 
 	@Column(name="UPDATE_USER_NAME")
@@ -68,108 +68,187 @@ public class Game implements Serializable {
 	public Game() {
 	}
 
-	public int getGameId() {
-		return this.gameId;
+	/**
+	 * @return the eventid
+	 */
+	public int getEventid() {
+		return eventid;
 	}
 
-	public void setGameId(int gameId) {
-		this.gameId = gameId;
+	/**
+	 * @param eventid the eventid to set
+	 */
+	public void setEventid(int eventid) {
+		this.eventid = eventid;
 	}
 
-	public String getAgeGrp() {
-		return this.ageGrp;
+	/**
+	 * @return the minage
+	 */
+	public String getMinage() {
+		return minage;
 	}
 
-	public void setAgeGrp(String ageGrp) {
-		this.ageGrp = ageGrp;
+	/**
+	 * @param minage the minage to set
+	 */
+	public void setMinage(String minage) {
+		this.minage = minage;
 	}
 
+	/**
+	 * @return the category
+	 */
 	public String getCategory() {
-		return this.category;
+		return category;
 	}
 
+	/**
+	 * @param category the category to set
+	 */
 	public void setCategory(String category) {
 		this.category = category;
 	}
 
+	/**
+	 * @return the dateFrom
+	 */
 	public Date getDateFrom() {
-		return this.dateFrom;
+		return dateFrom;
 	}
 
+	/**
+	 * @param dateFrom the dateFrom to set
+	 */
 	public void setDateFrom(Date dateFrom) {
 		this.dateFrom = dateFrom;
 	}
 
+	/**
+	 * @return the dateTo
+	 */
 	public Date getDateTo() {
-		return this.dateTo;
+		return dateTo;
 	}
 
+	/**
+	 * @param dateTo the dateTo to set
+	 */
 	public void setDateTo(Date dateTo) {
 		this.dateTo = dateTo;
 	}
 
-	public String getDiscipline() {
-		return this.discipline;
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
 	}
 
-	public void setDiscipline(String discipline) {
-		this.discipline = discipline;
+	/**
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getEvent() {
-		return this.event;
+	/**
+	 * @return the text
+	 */
+	public String getText() {
+		return text;
 	}
 
-	public void setEvent(String event) {
-		this.event = event;
+	/**
+	 * @param text the text to set
+	 */
+	public void setText(String text) {
+		this.text = text;
 	}
 
+	/**
+	 * @return the insertDateTime
+	 */
 	public Date getInsertDateTime() {
-		return this.insertDateTime;
+		return insertDateTime;
 	}
 
+	/**
+	 * @param insertDateTime the insertDateTime to set
+	 */
 	public void setInsertDateTime(Date insertDateTime) {
 		this.insertDateTime = insertDateTime;
 	}
 
+	/**
+	 * @return the insertUserName
+	 */
 	public String getInsertUserName() {
-		return this.insertUserName;
+		return insertUserName;
 	}
 
+	/**
+	 * @param insertUserName the insertUserName to set
+	 */
 	public void setInsertUserName(String insertUserName) {
 		this.insertUserName = insertUserName;
 	}
 
+	/**
+	 * @return the type
+	 */
 	public String getType() {
-		return this.type;
+		return type;
 	}
 
+	/**
+	 * @param type the type to set
+	 */
 	public void setType(String type) {
 		this.type = type;
 	}
 
+	/**
+	 * @return the updateDateTime
+	 */
 	public Date getUpdateDateTime() {
-		return this.updateDateTime;
+		return updateDateTime;
 	}
 
+	/**
+	 * @param updateDateTime the updateDateTime to set
+	 */
 	public void setUpdateDateTime(Date updateDateTime) {
 		this.updateDateTime = updateDateTime;
 	}
 
+	/**
+	 * @return the updateUserName
+	 */
 	public String getUpdateUserName() {
-		return this.updateUserName;
+		return updateUserName;
 	}
 
+	/**
+	 * @param updateUserName the updateUserName to set
+	 */
 	public void setUpdateUserName(String updateUserName) {
 		this.updateUserName = updateUserName;
 	}
 
+	/**
+	 * @return the venueId
+	 */
 	public BigDecimal getVenueId() {
-		return this.venueId;
+		return venueId;
 	}
 
+	/**
+	 * @param venueId the venueId to set
+	 */
 	public void setVenueId(BigDecimal venueId) {
 		this.venueId = venueId;
 	}
 
+	
 }

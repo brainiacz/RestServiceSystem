@@ -23,7 +23,7 @@ public class Schedule implements Serializable {
 	private int gameId;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="INSERT_DATE_TIME")
+	@Column(name="INSERT_DATE_TIME", insertable=false)
 	private Date insertDateTime;
 
 	@Column(name="INSERT_USER_NAME")
@@ -50,7 +50,7 @@ public class Schedule implements Serializable {
 	private String type;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="UPDATE_DATE_TIME")
+	@Column(name="UPDATE_DATE_TIME", insertable=false)
 	private Date updateDateTime;
 
 	@Column(name="UPDATE_USER_NAME")

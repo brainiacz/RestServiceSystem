@@ -30,7 +30,7 @@ public class EventDtl implements Serializable {
 	private String inserUserName;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="INSERT_DATE_TIME")
+	@Column(name="INSERT_DATE_TIME", insertable=false)
 	private Date insertDateTime;
 
 	@Column(name="NO_OF_MATHCES")
@@ -46,7 +46,7 @@ public class EventDtl implements Serializable {
 	private BigDecimal secRunnerupPartId;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="UPDATE_DATE_TIME")
+	@Column(name="UPDATE_DATE_TIME", insertable=false)
 	private Date updateDateTime;
 
 	@Column(name="UPDATE_USER_NAME")
