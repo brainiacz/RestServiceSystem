@@ -1,8 +1,6 @@
 package com.dervan.module.payment;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +10,7 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.dervan.module.model.dao.EventData;
 import com.dervan.module.model.dao.Participant;
 import com.dervan.module.model.dao.PayRepDtl;
 import com.dervan.module.model.dao.ReceiptMaster;
@@ -19,6 +18,7 @@ import com.dervan.module.model.dao.Team;
 import com.dervan.module.model.dao.TeamGame;
 import com.dervan.module.util.dao.HibernateUtil;
 import com.dervan.module.utils.CommonUtilities;
+import com.sun.java.swing.plaf.motif.resources.motif;
 
 public class TeamPayment {
 
@@ -37,8 +37,8 @@ public class TeamPayment {
 			team.setTeamSchoolAdd2(null != row[4] ? row[4].toString() : "");
 			team.setTeamSchoolCity(null != row[5] ? row[5].toString() : "");
 			team.setTeamSchoolState(null != row[6] ? row[6].toString() : "");
-			team.setTeamSchoolPincode(Integer.parseInt(row[7].toString()));
-			team.setCaptainPartId(Integer.parseInt(row[12].toString()));
+			team.setTeamSchoolPincode(null != row[7] ? row[7].toString() : "");
+			team.setCaptainPartId(null != row[12] ? Integer.parseInt(row[12].toString()) : -1);
 			
 			break;
 		}
@@ -46,7 +46,7 @@ public class TeamPayment {
 		return team;
 	}
 	
-	public static PayRepDtl getPaymentDetails(int captainID, Session session, Transaction transaction){
+	/*public static PayRepDtl getPaymentDetails(int captainID, Session session, Transaction transaction){
 		
 		SQLQuery query2 = session.createSQLQuery("SELECT * FROM PAY_REP_DTLS WHERE PART_TEAM_ID IN (SELECT TEAM_ID FROM TEAM WHERE CAPTAIN_PART_ID ="+ captainID+")");
 		List<Object[]> dataList = query2.list();
@@ -63,23 +63,25 @@ public class TeamPayment {
 		}
 		
 		return dtls;
-	}
+	}*/
 	
-	public static List<TeamGame> getTeamGameData(int captainID, Session session, Transaction transaction){
+	public static List<EventData> getTeamGameData(int captainID, Session session, Transaction transaction){
 		
-		SQLQuery query1 = session.createSQLQuery("SELECT * FROM TEAM_GAME WHERE TEAM_ID IN (SELECT TEAM_ID FROM TEAM WHERE CAPTAIN_PART_ID ="+ captainID+")");
+		SQLQuery query1 = session.createSQLQuery("SELECT GAME_ID, DISCIPLINE, AGE_GRP, CATEGORY, EVENT FROM SPORT_DATABASE.GAME WHERE GAME_ID IN (SELECT GAME_ID FROM TEAM_GAME WHERE TEAM_ID IN (SELECT TEAM_ID FROM TEAM WHERE CAPTAIN_PART_ID ="+ captainID+"))");
 		List<Object[]> dataList = query1.list();
 		
-		List<TeamGame> teamGameData  = new ArrayList<>();
+		List<EventData> teamGameData  = new ArrayList<>();
 		
 		
 		for(Object[] row : dataList){
-			TeamGame game = new TeamGame();
-			game.setTeamGameId(Integer.parseInt(row[0].toString()));
-			game.setTeamId(Integer.parseInt(row[1].toString()));
-			game.setGameId(Integer.parseInt(row[2].toString()));
-			teamGameData.add(game);
-		}
+			EventData data = new EventData();
+			data.setEventid(null != row[0] ? row[0].toString() : "");
+			data.setName(null != row[1] ? row[1].toString() : "");
+			data.setMinage(null != row[2] ? row[2].toString().replace("U", "") : "");
+			data.setText(null != row[4] ? row[4].toString() : "");
+			
+			teamGameData.add(data);
+			data = null;}
 		
 		return teamGameData;
 	}
@@ -104,12 +106,12 @@ public class TeamPayment {
 			captainData.setAddr2(null != row[8] ? row[8].toString() : "");
 			captainData.setState(null != row[9] ? row[9].toString() : "");
 			captainData.setCity(null != row[10] ? row[10].toString() : "");
-			captainData.setPincode(null != row[11] ? Integer.parseInt(row[11].toString()) : -1);
+			captainData.setPincode(null != row[11] ? row[11].toString() : "");
 			captainData.setAddressOfSchoolOrClub(null != row[12] ? row[12].toString() : "");
 			captainData.setAddress2OfSchoolOrClub(null != row[13] ? row[13].toString() : "");
 			captainData.setSchoolstate(null != row[14] ? row[14].toString() : "");
 			captainData.setSchoolcity(null != row[15] ? row[15].toString() : "");
-			captainData.setSchoolpincode(null != row[16] ? Integer.parseInt(row[16].toString()) : -1);
+			captainData.setSchoolpincode(null != row[16] ? row[16].toString() : "");
 			captainData.setGender(null != row[17] ? row[17].toString() : "");
 			captainData.setContactno(null != row[18] ? row[18].toString() : "");
 			captainData.setAlternativeno(null != row[19] ? row[19].toString() : "");
@@ -148,12 +150,12 @@ public class TeamPayment {
 			participant.setAddr2(null != row[8] ? row[8].toString() : "");
 			participant.setState(null != row[9] ? row[9].toString() : "");
 			participant.setCity(null != row[10] ? row[10].toString() : "");
-			participant.setPincode(null != row[11] ? Integer.parseInt(row[11].toString()) : -1);
+			participant.setPincode(null != row[11] ? row[11].toString() : "");
 			participant.setAddressOfSchoolOrClub(null != row[12] ? row[12].toString() : "");
 			participant.setAddress2OfSchoolOrClub(null != row[13] ? row[13].toString() : "");
 			participant.setSchoolstate(null != row[14] ? row[14].toString() : "");
 			participant.setSchoolcity(null != row[15] ? row[15].toString() : "");
-			participant.setSchoolpincode(null != row[16] ? Integer.parseInt(row[16].toString()) : -1);
+			participant.setSchoolpincode(null != row[16] ? row[16].toString() : "");
 			participant.setGender(null != row[17] ? row[17].toString() : "");
 			participant.setContactno(null != row[18] ? row[18].toString() : "");
 			participant.setAlternativeno(null != row[19] ? row[19].toString() : "");
@@ -184,29 +186,55 @@ public class TeamPayment {
 	}
 	
 	
-	public static Map<String, Object> getPayment(int teamId){
+	public static Map<String, Object> getPayment(int teamId, int captainId, int amount, String user){
 		
 		boolean isInserted = false;
 		Map<String, Object> data = new HashMap<>();
 		
 		Session session  = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();
-		ReceiptMaster master = getReceipt(session, teamId);
-		Query query1 = session.createSQLQuery("UPDATE PAY_REP_DTLS SET PAY_FLAG= :PAYFLAG, PAY_USR = :PAYUSR, PAY_DT = :PAYDT, RECEIPT_NBR = :RCTNBR WHERE PART_TEAM_ID  = :TEAMID");
-		query1.setParameter("PAYFLAG","Y");
-		query1.setParameter("TEAMID", teamId);
-		query1.setParameter("PAYDT", CommonUtilities.getDate());
-		query1.setParameter("RCTNBR", master.getReceiptNbr());
-		query1.setParameter("PAYUSR", CommonUtilities.getUsername());
-		int result = query1.executeUpdate();
 		
-		if(result > 0){
-			isInserted = true;
+		SQLQuery query2 = session.createSQLQuery("SELECT PAY_FLAG FROM PAY_REP_DTLS WHERE PART_TEAM_ID = "+teamId+"");
+		List<Object> dataList = query2.list();
+		String payFlag = null;
+		
+		for(Object row : dataList){
+			payFlag = null != row ? row.toString() : "N";
+			break;
 		}
+	
 		
-		data.put("success", isInserted);
-		data.put("TeamId", teamId);
-		
+		if (null != payFlag && !payFlag.equals("Y")) {
+			ReceiptMaster master = getReceipt(session, teamId);
+			Query query1 = session.createSQLQuery(
+					"UPDATE PAY_REP_DTLS SET PAY_FLAG= :PAYFLAG, PAY_USR = :PAYUSR, PAY_AMT = :PAYAMT, PAY_DT = :PAYDT, RECEIPT_NBR = :RCTNBR WHERE PART_TEAM_ID  = :TEAMID");
+			query1.setParameter("PAYFLAG", "Y");
+			query1.setParameter("TEAMID", teamId);
+			query1.setParameter("PAYDT", CommonUtilities.getDate());
+			query1.setParameter("RCTNBR", master.getReceiptNbr());
+			query1.setParameter("PAYUSR", user);
+			query1.setParameter("PAYAMT", amount);
+			int result = query1.executeUpdate();
+			if (result > 0) {
+				isInserted = true;
+			}
+			data.put("success", isInserted);
+			data.put("captainId", captainId);
+			data.put("receiptnumber", master.getReceiptNbr());
+			data.put("message", "Payment Done Successfully");
+			
+		}else if(payFlag == null){
+			data.put("success", isInserted);
+			data.put("receiptnumber", "");
+			data.put("message", "Captain ID does not exist");
+			data.put("captainId", captainId);
+		}
+		else {
+			data.put("success", isInserted);
+			data.put("receiptnumber", "");
+			data.put("message", "Payment Already Done");
+			data.put("captainId", captainId);
+		}
 		tx.commit();
 		session.close();
 		return data;

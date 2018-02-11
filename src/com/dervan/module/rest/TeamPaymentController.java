@@ -13,10 +13,10 @@ import javax.ws.rs.core.MediaType;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.dervan.module.model.dao.EventData;
 import com.dervan.module.model.dao.Participant;
 import com.dervan.module.model.dao.PayRepDtl;
 import com.dervan.module.model.dao.Team;
-import com.dervan.module.model.dao.TeamGame;
 import com.dervan.module.payment.TeamPayment;
 import com.dervan.module.util.dao.HibernateUtil;
 
@@ -27,35 +27,67 @@ public class TeamPaymentController {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	
-public  Map<String, Object> getPaymentUpdated(Map<String, Integer> inputData){
+public  Map<String, Map<String, Object>> getPaymentUpdated(Map<String, Integer> inputData){
 		
 		
 		Session session  = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();
     	Map<String, Object> data = new HashMap<>();
+    	Map<String, Map<String, Object>> parentData = new HashMap<>();
     	
 		Team teamData = null;
 		PayRepDtl payData = null;
-		List<TeamGame> teamGameData = null;
+		List<EventData> teamGameData = null;
 		Participant captainData = null;
 		List<Participant> participantDataList = null;
 		if(inputData != null){
 			
 			
 			teamData = TeamPayment.getTeamData(inputData.get("captainID"), session, tx);
-			payData = TeamPayment.getPaymentDetails(inputData.get("captainID"), session, tx);
+			//payData = TeamPayment.getPaymentDetails(inputData.get("captainID"), session, tx);
 			teamGameData = TeamPayment.getTeamGameData(inputData.get("captainID"), session, tx);
 			captainData = TeamPayment.getCaptainData(inputData.get("captainID"), session, tx);
 			participantDataList = TeamPayment.getParticipantsData(inputData.get("captainID"), session, tx);
 		}
 		
-		data.put("team", teamData);
-		data.put("captain", captainData);
-		data.put("participants", participantDataList);
-		data.put("payData", payData);
-		data.put("partiGame",teamGameData);
+		data.put("partidetails", getTeamCaptainData(teamData, captainData));
+		//data.put("captain", captainData);
+		data.put("tm", participantDataList);
+		//data.put("payData", payData);
+		data.put("games",teamGameData);
 		
+		parentData.put("record", data);
 				
-		return data;
+		return parentData;
+	}
+	
+	
+	public static Participant getTeamCaptainData(Team teamData, Participant participantData){
+		
+		Participant participant = new Participant();
+		
+		participant.setFirstname(participantData.getFirstname());
+		participant.setMiddlename(participantData.getMiddlename());
+		participant.setLastname(participantData.getLastname());
+		participant.setAddr1(participantData.getAddr1());
+		participant.setAddr2(participantData.getAddr2());
+		participant.setState(participantData.getState());
+		participant.setCity(participantData.getCity());
+		participant.setNameOfSchoolOrClub(teamData.getTeamSchool());
+		participant.setAddressOfSchoolOrClub(teamData.getTeamSchoolAdd1());
+		participant.setAddress2OfSchoolOrClub(teamData.getTeamSchoolAdd2());
+		participant.setSchoolstate(teamData.getTeamSchoolState());
+		participant.setSchoolcity(teamData.getTeamSchoolCity());
+		participant.setSchoolpincode(teamData.getTeamSchoolPincode());
+		participant.setDob(participantData.getDob());
+		participant.setContactno(participantData.getContactno());
+		participant.setAlternativeno(participantData.getAlternativeno());
+		participant.setEmail(participantData.getEmail());
+		participant.setGender(participantData.getGender());
+		participant.setBloodgroup(participantData.getBloodgroup());
+		participant.setIdentitynumber(participantData.getIdentitynumber());
+		participant.setIdentitytype(participantData.getIdentitytype());
+		participant.setAge(participantData.getAge());
+		return participant;
 	}
 }

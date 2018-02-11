@@ -118,7 +118,7 @@ public class TeamRegistration {
 		for(TeamGame game : games){
 			TeamGame teamGameTemp = new TeamGame();
 			teamGameTemp.setTeamId(teamId);
-			teamGameTemp.setGameId(game.getGameId());
+			teamGameTemp.setEventid(game.getEventid());
 			teamGameTemp.setInsertDateTime(CommonUtilities.getDate());
 			teamGameTemp.setUpdateDateTime(CommonUtilities.getDate());
 			teamGameTemp.setInsertUserName(CommonUtilities.getUsername());
@@ -155,6 +155,7 @@ public class TeamRegistration {
 	public static Team getTeamGameData(TeamRecordInner record){
 		Team data = new Team();
 		data.setTeamSchool(record.getPartidetails().getNameOfSchoolOrClub());
+		data.setTeamName(record.getPartidetails().getNameOfSchoolOrClub());
 		data.setTeamSchoolAdd1(record.getPartidetails().getAddressOfSchoolOrClub());
 		data.setTeamSchoolAdd2(record.getPartidetails().getAddress2OfSchoolOrClub());
 		data.setTeamSchoolCity(record.getPartidetails().getSchoolcity());

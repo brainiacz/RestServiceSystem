@@ -50,7 +50,7 @@ public class Team implements Serializable {
 	private String teamSchoolCity;
 
 	@Column(name="TEAM_SCHOOL_PINCODE")
-	private int teamSchoolPincode;
+	private String teamSchoolPincode;
 
 	@Column(name="TEAM_SCHOOL_STATE")
 	private String teamSchoolState;
@@ -64,103 +64,171 @@ public class Team implements Serializable {
 	
 	@Column(name="CAPTAIN_PART_ID")
 	private int captainPartId;
-	
 
-	public Team() {
-	}
-
+	/**
+	 * @return the teamId
+	 */
 	public int getTeamId() {
-		return this.teamId;
+		return teamId;
 	}
 
+	/**
+	 * @param teamId the teamId to set
+	 */
 	public void setTeamId(int teamId) {
 		this.teamId = teamId;
 	}
 
+	/**
+	 * @return the insertDateTime
+	 */
 	public Date getInsertDateTime() {
-		return this.insertDateTime;
+		return insertDateTime;
 	}
 
+	/**
+	 * @param insertDateTime the insertDateTime to set
+	 */
 	public void setInsertDateTime(Date insertDateTime) {
 		this.insertDateTime = insertDateTime;
 	}
 
+	/**
+	 * @return the insertUserName
+	 */
 	public String getInsertUserName() {
-		return this.insertUserName;
+		return insertUserName;
 	}
 
+	/**
+	 * @param insertUserName the insertUserName to set
+	 */
 	public void setInsertUserName(String insertUserName) {
 		this.insertUserName = insertUserName;
 	}
 
+	/**
+	 * @return the teamName
+	 */
 	public String getTeamName() {
-		return this.teamName;
+		return teamName;
 	}
 
+	/**
+	 * @param teamName the teamName to set
+	 */
 	public void setTeamName(String teamName) {
 		this.teamName = teamName;
 	}
 
+	/**
+	 * @return the teamSchool
+	 */
 	public String getTeamSchool() {
-		return this.teamSchool;
+		return teamSchool;
 	}
 
+	/**
+	 * @param teamSchool the teamSchool to set
+	 */
 	public void setTeamSchool(String teamSchool) {
 		this.teamSchool = teamSchool;
 	}
 
+	/**
+	 * @return the teamSchoolAdd1
+	 */
 	public String getTeamSchoolAdd1() {
-		return this.teamSchoolAdd1;
+		return teamSchoolAdd1;
 	}
 
+	/**
+	 * @param teamSchoolAdd1 the teamSchoolAdd1 to set
+	 */
 	public void setTeamSchoolAdd1(String teamSchoolAdd1) {
 		this.teamSchoolAdd1 = teamSchoolAdd1;
 	}
 
+	/**
+	 * @return the teamSchoolAdd2
+	 */
 	public String getTeamSchoolAdd2() {
-		return this.teamSchoolAdd2;
+		return teamSchoolAdd2;
 	}
 
+	/**
+	 * @param teamSchoolAdd2 the teamSchoolAdd2 to set
+	 */
 	public void setTeamSchoolAdd2(String teamSchoolAdd2) {
 		this.teamSchoolAdd2 = teamSchoolAdd2;
 	}
 
+	/**
+	 * @return the teamSchoolCity
+	 */
 	public String getTeamSchoolCity() {
-		return this.teamSchoolCity;
+		return teamSchoolCity;
 	}
 
+	/**
+	 * @param teamSchoolCity the teamSchoolCity to set
+	 */
 	public void setTeamSchoolCity(String teamSchoolCity) {
 		this.teamSchoolCity = teamSchoolCity;
 	}
 
-	public int getTeamSchoolPincode() {
-		return this.teamSchoolPincode;
+	/**
+	 * @return the teamSchoolPincode
+	 */
+	public String getTeamSchoolPincode() {
+		return teamSchoolPincode;
 	}
 
-	public void setTeamSchoolPincode(int teamSchoolPincode) {
+	/**
+	 * @param teamSchoolPincode the teamSchoolPincode to set
+	 */
+	public void setTeamSchoolPincode(String teamSchoolPincode) {
 		this.teamSchoolPincode = teamSchoolPincode;
 	}
 
+	/**
+	 * @return the teamSchoolState
+	 */
 	public String getTeamSchoolState() {
-		return this.teamSchoolState;
+		return teamSchoolState;
 	}
 
+	/**
+	 * @param teamSchoolState the teamSchoolState to set
+	 */
 	public void setTeamSchoolState(String teamSchoolState) {
 		this.teamSchoolState = teamSchoolState;
 	}
 
+	/**
+	 * @return the updateDateTime
+	 */
 	public Date getUpdateDateTime() {
-		return this.updateDateTime;
+		return updateDateTime;
 	}
 
+	/**
+	 * @param updateDateTime the updateDateTime to set
+	 */
 	public void setUpdateDateTime(Date updateDateTime) {
 		this.updateDateTime = updateDateTime;
 	}
 
+	/**
+	 * @return the updateUserName
+	 */
 	public String getUpdateUserName() {
-		return this.updateUserName;
+		return updateUserName;
 	}
 
+	/**
+	 * @param updateUserName the updateUserName to set
+	 */
 	public void setUpdateUserName(String updateUserName) {
 		this.updateUserName = updateUserName;
 	}

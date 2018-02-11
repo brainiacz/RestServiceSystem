@@ -17,8 +17,11 @@ public class AcceptPaymentIndController {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	
-	public Map<String, Object> getSuccessForPay(Map<String, Integer> inputData){
-		Map<String, Object> mapData = IndividualPayment.getPayment(inputData.get("partID"));
+	public Map<String, Object> getSuccessForPay(Map<String, String> inputData){
+		int partID = null != inputData.get("partID") ? Integer.parseInt(inputData.get("partID")) : 0;
+		int amount = null != inputData.get("amt") ? Integer.parseInt(inputData.get("amt")) : 0;
+		String user = null != inputData.get("user") ? inputData.get("user") : "";
+		Map<String, Object> mapData = IndividualPayment.getPayment(partID,amount,user );
 		return mapData;
 	}
 }

@@ -78,7 +78,7 @@ public class Participant implements Serializable {
 	private String contactno;
 
 	@Column(name="PINCODE")
-	private int pincode;
+	private String pincode;
 
 	@Column(name="SCHOOL")
 	private String nameOfSchoolOrClub;
@@ -93,7 +93,7 @@ public class Participant implements Serializable {
 	private String schoolcity;
 
 	@Column(name="SCHOOL_PINCODE")
-	private int schoolpincode;
+	private String schoolpincode;
 
 	@Column(name="SCHOOL_STATE")
 	private String schoolstate;
@@ -328,14 +328,14 @@ public class Participant implements Serializable {
 	/**
 	 * @return the pincode
 	 */
-	public int getPincode() {
+	public String getPincode() {
 		return pincode;
 	}
 
 	/**
 	 * @param pincode the pincode to set
 	 */
-	public void setPincode(int pincode) {
+	public void setPincode(String pincode) {
 		this.pincode = pincode;
 	}
 
@@ -398,14 +398,14 @@ public class Participant implements Serializable {
 	/**
 	 * @return the schoolpincode
 	 */
-	public int getSchoolpincode() {
+	public String getSchoolpincode() {
 		return schoolpincode;
 	}
 
 	/**
 	 * @param schoolpincode the schoolpincode to set
 	 */
-	public void setSchoolpincode(int schoolpincode) {
+	public void setSchoolpincode(String schoolpincode) {
 		this.schoolpincode = schoolpincode;
 	}
 
@@ -437,5 +437,6 @@ public class Participant implements Serializable {
 		this.state = state;
 	}
 
+	
 		
 }

@@ -21,10 +21,14 @@ public class AcceptPaymentTeamController {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	
-	public Map<String, Object> getSuccessForPay(Map<String, Integer> inputData){
+	public Map<String, Object> getSuccessForPay(Map<String, String> inputData){
 		Session session  = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();
-		Map<String, Object> mapData = TeamPayment.getPayment(TeamPayment.getTeamData(inputData.get("captainID"), session, tx).getTeamId());		
+		int teamId = null != inputData.get("captainID") ? TeamPayment.getTeamID(Integer.parseInt(inputData.get("captainID")), session, tx) : 0;
+		int captainId = null != inputData.get("captainID") ? Integer.parseInt(inputData.get("captainID")) : 0;
+		int amount = null != inputData.get("amt") ? Integer.parseInt(inputData.get("amt")) : 0;
+		String user = null != inputData.get("user") ? inputData.get("user") : "";
+		Map<String, Object> mapData = TeamPayment.getPayment(teamId, captainId, amount, user );		
 		return mapData;
 	}
 

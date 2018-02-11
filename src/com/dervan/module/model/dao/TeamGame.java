@@ -21,7 +21,7 @@ public class TeamGame implements Serializable {
 	private int teamGameId;
 
 	@Column(name="GAME_ID")
-	private int gameId;
+	private int eventid;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="INSERT_DATE_TIME", insertable=false)
@@ -40,63 +40,103 @@ public class TeamGame implements Serializable {
 	@Column(name="UPDATE_USER_NAME")
 	private String updateUserName;
 
-	public TeamGame() {
-	}
-
+	/**
+	 * @return the teamGameId
+	 */
 	public int getTeamGameId() {
-		return this.teamGameId;
+		return teamGameId;
 	}
 
+	/**
+	 * @param teamGameId the teamGameId to set
+	 */
 	public void setTeamGameId(int teamGameId) {
 		this.teamGameId = teamGameId;
 	}
 
-	public int getGameId() {
-		return this.gameId;
+	/**
+	 * @return the eventid
+	 */
+	public int getEventid() {
+		return eventid;
 	}
 
-	public void setGameId(int gameId) {
-		this.gameId = gameId;
+	/**
+	 * @param eventid the eventid to set
+	 */
+	public void setEventid(int eventid) {
+		this.eventid = eventid;
 	}
 
+	/**
+	 * @return the insertDateTime
+	 */
 	public Date getInsertDateTime() {
-		return this.insertDateTime;
+		return insertDateTime;
 	}
 
+	/**
+	 * @param insertDateTime the insertDateTime to set
+	 */
 	public void setInsertDateTime(Date insertDateTime) {
 		this.insertDateTime = insertDateTime;
 	}
 
+	/**
+	 * @return the insertUserName
+	 */
 	public String getInsertUserName() {
-		return this.insertUserName;
+		return insertUserName;
 	}
 
+	/**
+	 * @param insertUserName the insertUserName to set
+	 */
 	public void setInsertUserName(String insertUserName) {
 		this.insertUserName = insertUserName;
 	}
 
+	/**
+	 * @return the teamId
+	 */
 	public int getTeamId() {
-		return this.teamId;
+		return teamId;
 	}
 
+	/**
+	 * @param teamId the teamId to set
+	 */
 	public void setTeamId(int teamId) {
 		this.teamId = teamId;
 	}
 
+	/**
+	 * @return the updateDateTime
+	 */
 	public Date getUpdateDateTime() {
-		return this.updateDateTime;
+		return updateDateTime;
 	}
 
+	/**
+	 * @param updateDateTime the updateDateTime to set
+	 */
 	public void setUpdateDateTime(Date updateDateTime) {
 		this.updateDateTime = updateDateTime;
 	}
 
+	/**
+	 * @return the updateUserName
+	 */
 	public String getUpdateUserName() {
-		return this.updateUserName;
+		return updateUserName;
 	}
 
+	/**
+	 * @param updateUserName the updateUserName to set
+	 */
 	public void setUpdateUserName(String updateUserName) {
 		this.updateUserName = updateUserName;
 	}
 
+	
 }

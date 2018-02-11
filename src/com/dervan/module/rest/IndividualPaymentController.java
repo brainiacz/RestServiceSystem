@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.dervan.module.model.dao.EventData;
 import com.dervan.module.model.dao.PartiGame;
 import com.dervan.module.model.dao.Participant;
 import com.dervan.module.model.dao.PayRepDtl;
@@ -26,30 +27,30 @@ public class IndividualPaymentController {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public  Map<String, Object> getPaymentUpdated(Map<String, Integer> inputData) throws JsonProcessingException{
+	public  Map<String, Map<String, Object>> getPaymentUpdated(Map<String, Integer> inputData) throws JsonProcessingException{
 		
 		
 		Session session  = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();
     	Map<String, Object> data = new HashMap<>();
-    	
+    	Map<String, Map<String, Object>> parentMap = new HashMap<String, Map<String,Object>>();
 		Participant participantData = null;
-		PayRepDtl payData = null;
-		List<PartiGame> partiGameData = null;
+		//PayRepDtl payData = null;
+		List<EventData> partiGameData = null;
 		
 		if(inputData != null){
 			
 			participantData = IndividualPayment.getParticipant(inputData.get("partId"), session, tx);
-			payData = IndividualPayment.getPaymentDetails(inputData.get("partId"), session, tx);
+			//payData = IndividualPayment.getPaymentDetails(inputData.get("partId"), session, tx);
 			partiGameData = IndividualPayment.getPartiGameData(inputData.get("partId"), session, tx);
 		}
 		
-		data.put("participant", participantData);
-		data.put("payData", payData);
-		data.put("partiGame", partiGameData);
-		
+		data.put("partidetails", participantData);
+		//data.put("payData", payData);
+		data.put("games", partiGameData);
+		parentMap.put("record", data);
 				
-		return data;
+		return parentMap;
 	}
 	
 	

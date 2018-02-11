@@ -1,8 +1,6 @@
 package com.dervan.module.payment;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +10,7 @@ import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import com.dervan.module.model.dao.EventData;
 import com.dervan.module.model.dao.PartiGame;
 import com.dervan.module.model.dao.Participant;
 import com.dervan.module.model.dao.PayRepDtl;
@@ -41,12 +40,12 @@ public class IndividualPayment {
 			participant.setAddr2(null != row[8] ? row[8].toString() : "");
 			participant.setState(null != row[9] ? row[9].toString() : "");
 			participant.setCity(null != row[10] ? row[10].toString() : "");
-			participant.setPincode(null != row[11] ? Integer.parseInt(row[11].toString()) : -1);
+			participant.setPincode(null != row[11] ? row[11].toString() : "");
 			participant.setAddressOfSchoolOrClub(null != row[12] ? row[12].toString() : "");
 			participant.setAddress2OfSchoolOrClub(null != row[13] ? row[13].toString() : "");
 			participant.setSchoolstate(null != row[14] ? row[14].toString() : "");
 			participant.setSchoolcity(null != row[15] ? row[15].toString() : "");
-			participant.setSchoolpincode(null != row[16] ? Integer.parseInt(row[16].toString()) : -1);
+			participant.setSchoolpincode(null != row[16] ? row[16].toString() : "");
 			participant.setGender(null != row[17] ? row[17].toString() : "");
 			participant.setContactno(null != row[18] ? row[18].toString() : "");
 			participant.setAlternativeno(null != row[19] ? row[19].toString() : "");
@@ -80,51 +79,80 @@ public class IndividualPayment {
 		return dtls;
 	}
 	
-	public static List<PartiGame> getPartiGameData(int partId, Session session, Transaction transaction){
+	public static List<EventData> getPartiGameData(int partId, Session session, Transaction transaction){
 		
-		SQLQuery query1 = session.createSQLQuery("SELECT * FROM PARTI_GAME WHERE PART_ID = "+partId+"");
+		SQLQuery query1 = session.createSQLQuery("SELECT GAME_ID, DISCIPLINE, AGE_GRP, CATEGORY, EVENT FROM SPORT_DATABASE.GAME WHERE GAME_ID IN (SELECT GAME_ID FROM PARTI_GAME WHERE PART_ID = "+partId+")");
+		
 		List<Object[]> dataList = query1.list();
 		
-		List<PartiGame> partiGameData  = new ArrayList<>();
-		
-		
+		List<EventData> partiGameData  = new ArrayList<>();
 		for(Object[] row : dataList){
-			PartiGame game = new PartiGame();
-			game.setPartiGameId(Integer.valueOf(row[0].toString()));
-			game.setPartId(Integer.valueOf(row[1].toString()));
-			game.setGameId(Integer.valueOf(row[2].toString()));
-			partiGameData.add(game);
+			EventData data = new EventData();
+			data.setEventid(null != row[0] ? row[0].toString() : "");
+			data.setName(null != row[1] ? row[1].toString() : "");
+			data.setMinage(null != row[2] ? row[2].toString().replace("U", "") : "");
+			data.setText(null != row[4] ? row[4].toString() : "");
+			
+			partiGameData.add(data);
+			data = null;
 		}
+		
+		
 		
 		return partiGameData;
 	}
 	
 	
-	public static Map<String, Object> getPayment(int partid){
+	public static Map<String, Object> getPayment(int partid, int amt, String user){
+		
 		
 		boolean isInserted = false;
 		Map<String, Object> data = new HashMap<>();
 		
 		Session session  = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();
-		ReceiptMaster master = getReceipt(session, partid);
 		
-		Query query1 = session.createSQLQuery("UPDATE PAY_REP_DTLS SET PAY_FLAG= :PAYFLAG , PAY_DT = :PAYDT, PAY_USR = :PAYUSR, RECEIPT_NBR = :RCTNBR WHERE PART_TEAM_ID  = :PARTID");
-		query1.setParameter("PAYFLAG","Y");
-		query1.setParameter("PARTID", partid);
-		query1.setParameter("PAYDT", CommonUtilities.getDate());
-		query1.setParameter("RCTNBR", master.getReceiptNbr());
-		query1.setParameter("PAYUSR", CommonUtilities.getUsername());
+		SQLQuery query2 = session.createSQLQuery("SELECT PAY_FLAG FROM PAY_REP_DTLS WHERE PART_TEAM_ID = "+partid+"");
+		List<Object> dataList = query2.list();
+		String payFlag = null;
 		
-		int result = query1.executeUpdate();
-		
-		if(result > 0){
-			isInserted = true;
+		for(Object row : dataList){
+			payFlag = null != row ? row.toString() : "N";
+			break;
 		}
 		
-		data.put("success", isInserted);
-		data.put("partID", partid);
 		
+		
+		if (null != payFlag && !payFlag.equals("Y")) {
+			ReceiptMaster master = getReceipt(session, partid);
+			Query query1 = session.createSQLQuery(
+					"UPDATE PAY_REP_DTLS SET PAY_AMT = :PAYAMT, PAY_FLAG= :PAYFLAG , PAY_DT = :PAYDT, PAY_USR = :PAYUSR, RECEIPT_NBR = :RCTNBR WHERE PART_TEAM_ID  = :PARTID");
+			query1.setParameter("PAYFLAG", "Y");
+			query1.setParameter("PAYAMT", amt);
+			query1.setParameter("PARTID", partid);
+			query1.setParameter("PAYDT", CommonUtilities.getDate());
+			query1.setParameter("RCTNBR", master.getReceiptNbr());
+			query1.setParameter("PAYUSR", user);
+			int result = query1.executeUpdate();
+			if (result > 0) {
+				isInserted = true;
+			}
+			data.put("success", isInserted);
+			data.put("receiptnumber", master.getReceiptNbr());
+			data.put("message", "Payment Done Successfully");
+			data.put("partID", partid);
+		}else if(payFlag == null) {
+			data.put("success", isInserted);
+			data.put("receiptnumber", "");
+			data.put("message", "Participant ID does not exist");
+			data.put("partID", partid);
+		}else{
+			
+			data.put("success", isInserted);
+			data.put("receiptnumber", "");
+			data.put("message", "Payment Already Done");
+			data.put("partID", partid);
+		}
 		tx.commit();
 		session.close();
 		return data;

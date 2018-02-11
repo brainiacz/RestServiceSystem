@@ -52,7 +52,7 @@ public class IndividualRegistration {
 		session.clear();
 		PayRepDtl details = null;
 			details = new PayRepDtl();
-			details.setPayAmt(amount);
+			//details.setPayAmt(amount);
 			details.setPartTeamId(partId);
 			//details.setReceiptNbr(master.getReceiptNbr());
 			details.setPayFlag("N");
