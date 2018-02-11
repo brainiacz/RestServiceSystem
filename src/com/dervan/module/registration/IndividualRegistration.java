@@ -15,6 +15,7 @@ import com.dervan.module.model.dao.PayRepDtl;
 import com.dervan.module.model.dao.ReceiptMaster;
 import com.dervan.module.model.dao.RecordInner;
 import com.dervan.module.util.dao.HibernateUtil;
+import com.dervan.module.utils.CommonUtilities;
 
 public class IndividualRegistration {
 	
@@ -56,9 +57,7 @@ public class IndividualRegistration {
 			//details.setReceiptNbr(master.getReceiptNbr());
 			details.setPayFlag("N");
 			details.setKycCheck("N");
-			details.setPayUsr("Dervan");
 			details.setReportedFlg("N");
-			details.setReportedDt(new Date());
 		return details;
 	}
 	
@@ -72,7 +71,12 @@ public class IndividualRegistration {
 			PartiGame partiGameTemp = new PartiGame();
 			partiGameTemp.setPartId(partId);
 			partiGameTemp.setGameId(game.getEventid());
+			partiGameTemp.setInsertDateTime(CommonUtilities.getDate());
+			partiGameTemp.setUpdateDateTime(CommonUtilities.getDate());
+			partiGameTemp.setInsertUserName(CommonUtilities.getUsername());
+			partiGameTemp.setUpdateUserName(CommonUtilities.getUsername());
 			partiGame.add(partiGameTemp);
+			
 			partiGameTemp = null;
 		}
 		

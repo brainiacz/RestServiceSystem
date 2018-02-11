@@ -15,6 +15,7 @@ import com.dervan.module.model.dao.TeamGame;
 import com.dervan.module.model.dao.TeamParti;
 import com.dervan.module.model.dao.TeamRecordInner;
 import com.dervan.module.util.dao.HibernateUtil;
+import com.dervan.module.utils.CommonUtilities;
 
 public class TeamRegistration {
 
@@ -60,6 +61,11 @@ public class TeamRegistration {
 			TeamParti teamParti = new TeamParti();
 			teamParti.setPartId(data);
 			teamParti.setTeamId(teamId);
+			teamParti.setInsertDateTime(CommonUtilities.getDate());
+			teamParti.setUpdateDateTime(CommonUtilities.getDate());
+			teamParti.setInsertUserName(CommonUtilities.getUsername());
+			teamParti.setUpdateUserName(CommonUtilities.getUsername());
+
 			session.save(teamParti);
 			teamParti = null;
 		}
@@ -95,7 +101,6 @@ public class TeamRegistration {
 			//details.setReceiptNbr(master.getReceiptNbr());
 			details.setPayFlag("N");
 			details.setKycCheck("N");
-			details.setPayUsr("Dervan");
 			details.setReportedFlg("N");
 		
 
@@ -114,6 +119,10 @@ public class TeamRegistration {
 			TeamGame teamGameTemp = new TeamGame();
 			teamGameTemp.setTeamId(teamId);
 			teamGameTemp.setGameId(game.getGameId());
+			teamGameTemp.setInsertDateTime(CommonUtilities.getDate());
+			teamGameTemp.setUpdateDateTime(CommonUtilities.getDate());
+			teamGameTemp.setInsertUserName(CommonUtilities.getUsername());
+			teamGameTemp.setUpdateUserName(CommonUtilities.getUsername());
 			teamGame.add(teamGameTemp);
 			teamGameTemp = null;
 		}
@@ -122,7 +131,7 @@ public class TeamRegistration {
 
 	}
 	
-	
+	/*
 	public static ReceiptMaster getReceipt(Session session, int teamID){
 		session.clear();
 		
@@ -141,7 +150,7 @@ public class TeamRegistration {
 		query1.executeUpdate();
 		return data;
 	}
-
+*/
 	
 	public static Team getTeamGameData(TeamRecordInner record){
 		Team data = new Team();
@@ -151,6 +160,10 @@ public class TeamRegistration {
 		data.setTeamSchoolCity(record.getPartidetails().getSchoolcity());
 		data.setTeamSchoolPincode(record.getPartidetails().getSchoolpincode());
 		data.setTeamSchoolState(record.getPartidetails().getSchoolstate());
+		data.setInsertDateTime(CommonUtilities.getDate());
+		data.setUpdateDateTime(CommonUtilities.getDate());
+		data.setInsertUserName(CommonUtilities.getUsername());
+		data.setUpdateUserName(CommonUtilities.getUsername());
 
 		return data;
 	}

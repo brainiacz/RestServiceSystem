@@ -18,6 +18,7 @@ import com.dervan.module.model.dao.ReceiptMaster;
 import com.dervan.module.model.dao.Team;
 import com.dervan.module.model.dao.TeamGame;
 import com.dervan.module.util.dao.HibernateUtil;
+import com.dervan.module.utils.CommonUtilities;
 
 public class TeamPayment {
 
@@ -191,12 +192,12 @@ public class TeamPayment {
 		Session session  = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();
 		ReceiptMaster master = getReceipt(session, teamId);
-		Query query1 = session.createSQLQuery("UPDATE PAY_REP_DTLS SET PAY_FLAG= :PAYFLAG , REPORTED_FLG = :REPOFLAG, PAY_DT = :PAYDT, RECEIPT_NBR: RCTNBR WHERE PART_TEAM_ID  = :TEAMID");
+		Query query1 = session.createSQLQuery("UPDATE PAY_REP_DTLS SET PAY_FLAG= :PAYFLAG, PAY_USR = :PAYUSR, PAY_DT = :PAYDT, RECEIPT_NBR = :RCTNBR WHERE PART_TEAM_ID  = :TEAMID");
 		query1.setParameter("PAYFLAG","Y");
-		query1.setParameter("REPOFLAG","Y");
 		query1.setParameter("TEAMID", teamId);
-		query1.setParameter("PAYDT", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+		query1.setParameter("PAYDT", CommonUtilities.getDate());
 		query1.setParameter("RCTNBR", master.getReceiptNbr());
+		query1.setParameter("PAYUSR", CommonUtilities.getUsername());
 		int result = query1.executeUpdate();
 		
 		if(result > 0){
