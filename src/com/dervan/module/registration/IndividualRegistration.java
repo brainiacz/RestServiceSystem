@@ -1,6 +1,5 @@
 package com.dervan.module.registration;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,7 +15,6 @@ import com.dervan.module.model.dao.PayRepDtl;
 import com.dervan.module.model.dao.ReceiptMaster;
 import com.dervan.module.model.dao.RecordInner;
 import com.dervan.module.util.dao.HibernateUtil;
-import com.fasterxml.jackson.databind.module.SimpleAbstractTypeResolver;
 
 public class IndividualRegistration {
 	
@@ -38,8 +36,8 @@ public class IndividualRegistration {
 		}
 		
 		
-		ReceiptMaster master = getReceipt(session, partId);
-		PayRepDtl dtls = getPaymentDtls(session, master, amount, partId);
+		//ReceiptMaster master = getReceipt(session, partId);
+		PayRepDtl dtls = getPaymentDtls(session,  amount, partId);
 		session.save(dtls);
 		
 		
@@ -49,25 +47,19 @@ public class IndividualRegistration {
 		return String.valueOf(partId);
 	}
 	
-	public static PayRepDtl getPaymentDtls(Session session, ReceiptMaster master, int amount, int partId){
+	public static PayRepDtl getPaymentDtls(Session session, int amount, int partId){
 		session.clear();
 		PayRepDtl details = null;
-		
-		if(master != null){
 			details = new PayRepDtl();
 			details.setPayAmt(amount);
 			details.setPartTeamId(partId);
-			details.setReceiptNbr(master.getReceiptNbr());
+			//details.setReceiptNbr(master.getReceiptNbr());
 			details.setPayFlag("N");
 			details.setKycCheck("N");
 			details.setPayUsr("Dervan");
-			details.setReportedFlg("Y");
+			details.setReportedFlg("N");
 			details.setReportedDt(new Date());
-		}
-		
 		return details;
-		
-	
 	}
 	
 	

@@ -39,7 +39,7 @@ public class Participant implements Serializable {
 	private String addr2;
 	
 	@Column(name="AGE")
-	private int age;
+	private String age;
 	
 	@Column(name="BLOOD_GRP")
 	private String bloodgroup;
@@ -146,14 +146,14 @@ public class Participant implements Serializable {
 	/**
 	 * @return the age
 	 */
-	public int getAge() {
+	public String getAge() {
 		return age;
 	}
 
 	/**
 	 * @param age the age to set
 	 */
-	public void setAge(int age) {
+	public void setAge(String age) {
 		this.age = age;
 	}
 

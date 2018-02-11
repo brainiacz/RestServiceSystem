@@ -73,8 +73,8 @@ public class TeamRegistration {
 		}
 		
 		// Get the receipt number and update its flag to Y
-		ReceiptMaster master = getReceipt(session, teamId);
-		PayRepDtl dtls = getPaymentDtls(session, master, amount, teamId);
+		//ReceiptMaster master = getReceipt(session, teamId);
+		PayRepDtl dtls = getPaymentDtls(session, amount, teamId);
 		session.save(dtls);
 		
 		
@@ -84,21 +84,21 @@ public class TeamRegistration {
 		return String.valueOf(captainID);
 	}
 	
-	public static PayRepDtl getPaymentDtls(Session session, ReceiptMaster master, int amount, int partId){
+	public static PayRepDtl getPaymentDtls(Session session, int amount, int partId){
 		session.clear();
 		PayRepDtl details = null;
 		
-		if(master != null){
+	
 			details = new PayRepDtl();
 			details.setPayAmt(amount);
 			details.setPartTeamId(partId);
-			details.setReceiptNbr(master.getReceiptNbr());
+			//details.setReceiptNbr(master.getReceiptNbr());
 			details.setPayFlag("N");
 			details.setKycCheck("N");
 			details.setPayUsr("Dervan");
-			details.setReportedFlg("Y");
-		}
+			details.setReportedFlg("N");
 		
+
 		return details;
 		
 	

@@ -14,6 +14,7 @@ import org.hibernate.Transaction;
 
 import com.dervan.module.model.dao.Participant;
 import com.dervan.module.model.dao.PayRepDtl;
+import com.dervan.module.model.dao.ReceiptMaster;
 import com.dervan.module.model.dao.Team;
 import com.dervan.module.model.dao.TeamGame;
 import com.dervan.module.util.dao.HibernateUtil;
@@ -96,7 +97,7 @@ public class TeamPayment {
 			captainData.setMiddlename(null != row[2] ? row[2].toString() : "");
 			captainData.setLastname(null != row[3] ? row[3].toString() : "");
 			captainData.setDob(null != row[4] ? row[4].toString() : "");
-			captainData.setAge(null != row[5] ? Integer.parseInt(row[5].toString()) : -1);
+			captainData.setAge(null != row[5] ? row[5].toString() : "");
 			captainData.setNameOfSchoolOrClub(null != row[6] ? row[6].toString() : "");
 			captainData.setAddr1(null != row[7] ? row[7].toString() : "");
 			captainData.setAddr2(null != row[8] ? row[8].toString() : "");
@@ -140,7 +141,7 @@ public class TeamPayment {
 			participant.setMiddlename(null != row[2] ? row[2].toString() : "");
 			participant.setLastname(null != row[3] ? row[3].toString() : "");
 			participant.setDob(null != row[4] ? row[4].toString() : "");
-			participant.setAge(null != row[5] ? Integer.parseInt(row[5].toString()) : -1);
+			participant.setAge(null != row[5] ? row[5].toString() : "");
 			participant.setNameOfSchoolOrClub(null != row[6] ? row[6].toString() : "");
 			participant.setAddr1(null != row[7] ? row[7].toString() : "");
 			participant.setAddr2(null != row[8] ? row[8].toString() : "");
@@ -189,11 +190,13 @@ public class TeamPayment {
 		
 		Session session  = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();
-		Query query1 = session.createSQLQuery("UPDATE PAY_REP_DTLS SET PAY_FLAG= :PAYFLAG , REPORTED_FLG = :REPOFLAG, PAY_DT = :PAYDT WHERE PART_TEAM_ID  = :TEAMID");
+		ReceiptMaster master = getReceipt(session, teamId);
+		Query query1 = session.createSQLQuery("UPDATE PAY_REP_DTLS SET PAY_FLAG= :PAYFLAG , REPORTED_FLG = :REPOFLAG, PAY_DT = :PAYDT, RECEIPT_NBR: RCTNBR WHERE PART_TEAM_ID  = :TEAMID");
 		query1.setParameter("PAYFLAG","Y");
 		query1.setParameter("REPOFLAG","Y");
 		query1.setParameter("TEAMID", teamId);
 		query1.setParameter("PAYDT", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+		query1.setParameter("RCTNBR", master.getReceiptNbr());
 		int result = query1.executeUpdate();
 		
 		if(result > 0){
@@ -207,6 +210,25 @@ public class TeamPayment {
 		session.close();
 		return data;
 		
+	}
+
+	public static ReceiptMaster getReceipt(Session session, int teamID){
+		session.clear();
+		
+		String sql = "From ReceiptMaster as receiptMaster where receiptMaster.assignedFlg = 'N'";
+		Query query = session.createQuery(sql);
+		query.setMaxResults(1);
+		List<ReceiptMaster> master = query.list();
+		
+		ReceiptMaster data = (ReceiptMaster)master.get(0);
+		
+		Query query1 = session.createSQLQuery("UPDATE RECEIPT_MASTER SET ASSIGNED_FLG= :FLAG, ASSIGNED_PART_ID= :PID WHERE RECEIPT_NBR  = :RCTNO")
+		.setParameter("FLAG", 'Y')
+		.setParameter("PID", teamID)
+		.setParameter("RCTNO", data.getReceiptNbr());
+		
+		query1.executeUpdate();
+		return data;
 	}
 
 }
