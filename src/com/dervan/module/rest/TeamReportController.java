@@ -69,7 +69,7 @@ public class TeamReportController {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Map<String, Object> changeReportedInfo(Map<String, String> inputData ){
 
-		int partId = null != inputData.get("partid") ? Integer.parseInt(inputData.get("partid")) : 0;
+		int partId = null != inputData.get("captainid") ? Integer.parseInt(inputData.get("captainid")) : 0;
 		String kycFlag = null != inputData.get("kycflag") ? String.valueOf(inputData.get("kycflag")) : "";
 		String reportingFlag = null != inputData.get("reportingflag") ? String.valueOf(inputData.get("reportingflag")) : "";
 		

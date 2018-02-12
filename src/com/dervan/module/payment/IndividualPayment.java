@@ -140,18 +140,18 @@ public class IndividualPayment {
 			data.put("success", isInserted);
 			data.put("receiptnumber", master.getReceiptNbr());
 			data.put("message", "Payment Done Successfully");
-			data.put("partID", partid);
+			data.put("partid", partid);
 		}else if(payFlag == null) {
 			data.put("success", isInserted);
 			data.put("receiptnumber", "");
 			data.put("message", "Participant ID does not exist");
-			data.put("partID", partid);
+			data.put("partid", partid);
 		}else{
 			
 			data.put("success", isInserted);
 			data.put("receiptnumber", "");
 			data.put("message", "Payment Already Done");
-			data.put("partID", partid);
+			data.put("partid", partid);
 		}
 		tx.commit();
 		session.close();

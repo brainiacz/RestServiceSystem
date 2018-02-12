@@ -199,7 +199,7 @@ public class IndividualReport {
 			data.put("reportingStatus", isInsertedReportedFlag);
 			data.put("kycStatus", isInsertedKycFlag);
 			data.put("message", "Changes done successfully");
-			data.put("captainID", partID);
+			data.put("partid", partID);
 			tx.commit();
 			session.close();
 			return data;
@@ -228,7 +228,7 @@ public class IndividualReport {
 			data.put("reportingStatus", isInsertedReportedFlag);
 			data.put("kycStatus", isInsertedKycFlag);
 			data.put("message", "Changes done successfully");
-			data.put("captainID", partID);
+			data.put("partid", partID);
 			tx.commit();
 			session.close();
 			return data;
@@ -246,7 +246,7 @@ public class IndividualReport {
 			}
 			data.put("reportingStatus", isInsertedReportedFlag);
 			data.put("message", "Reported Flag changed successfully");
-			data.put("captainID", partID);
+			data.put("partid", partID);
 			tx.commit();
 			session.close();
 			return data;
@@ -262,7 +262,7 @@ public class IndividualReport {
 			}
 			data.put("kycStatus", isInsertedKycFlag);
 			data.put("message", "KYC Check done successfully");
-			data.put("captainID", partID);
+			data.put("partid", partID);
 			tx.commit();
 			session.close();
 			return data;
@@ -280,7 +280,7 @@ public class IndividualReport {
 			}
 			data.put("reportingStatus", isInsertedReportedFlag);
 			data.put("message", "Reported Flag changed successfully");
-			data.put("captainID", partID);
+			data.put("partid", partID);
 			tx.commit();
 			session.close();
 			return data;
@@ -296,7 +296,7 @@ public class IndividualReport {
 			}
 			data.put("kycStatus", isInsertedKycFlag);
 			data.put("message", "KYC Check done successfully");
-			data.put("captainID", partID);
+			data.put("partid", partID);
 			tx.commit();
 			session.close();
 			return data;
@@ -314,7 +314,7 @@ public class IndividualReport {
 			}
 			data.put("reportingStatus", isInsertedReportedFlag);
 			data.put("message", "Reported Flag changed successfully");
-			data.put("captainID", partID);
+			data.put("partid", partID);
 			tx.commit();
 			session.close();
 			return data;
@@ -330,7 +330,7 @@ public class IndividualReport {
 			}
 			data.put("kycStatus", isInsertedKycFlag);
 			data.put("message", "KYC Check done successfully");
-			data.put("captainID", partID);
+			data.put("partid", partID);
 			tx.commit();
 			session.close();
 			return data;
@@ -342,7 +342,7 @@ public class IndividualReport {
 			data.put("kycStatus", isInsertedKycFlag);
 			data.put("reportingStatus", isInsertedReportedFlag);
 			data.put("message", "KYC Check and Reporting already done");
-			data.put("captainID", partID);
+			data.put("partid", partID);
 			tx.commit();
 			session.close();
 			return data;
@@ -350,21 +350,21 @@ public class IndividualReport {
 			data.put("kycStatus", isInsertedKycFlag);
 			data.put("reportingStatus", isInsertedReportedFlag);
 			data.put("message", "KYC Check and Reporting remain unchanged");
-			data.put("captainID", partID);
+			data.put("partid", partID);
 			tx.commit();
 			session.close();
 			return data;
 		}else if (repFlag.equals("Y") && reportedFlag.equals("Y")) {
 			data.put("reportingStatus", isInsertedReportedFlag);
 			data.put("message", "Reporting already done");
-			data.put("captainID", partID);
+			data.put("partid", partID);
 			tx.commit();
 			session.close();
 			return data;
 		} else if (kycFlag.equals("Y") && KYCflag.equals("Y")) {
 			data.put("kycStatus", isInsertedKycFlag);
 			data.put("message", "KYC Check already done");
-			data.put("captainID", partID);
+			data.put("partid", partID);
 			tx.commit();
 			session.close();
 			return data;
