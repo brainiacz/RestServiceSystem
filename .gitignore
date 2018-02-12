@@ -1,1 +1,8 @@
+/target/*
 /target/
+/EXP
+/target
+/.classpath
+/.project
+/.settings
+/build
