@@ -35,14 +35,12 @@ public class IndividualPaymentController {
     	Map<String, Object> data = new HashMap<>();
     	Map<String, Map<String, Object>> parentMap = new HashMap<String, Map<String,Object>>();
 		Participant participantData = null;
-		//PayRepDtl payData = null;
 		List<EventData> partiGameData = null;
 		
 		if(inputData != null){
 			
-			participantData = IndividualPayment.getParticipant(inputData.get("partId"), session, tx);
-			//payData = IndividualPayment.getPaymentDetails(inputData.get("partId"), session, tx);
-			partiGameData = IndividualPayment.getPartiGameData(inputData.get("partId"), session, tx);
+			participantData = IndividualPayment.getParticipant(inputData.get("partid"), session, tx);
+			partiGameData = IndividualPayment.getPartiGameData(inputData.get("partid"), session, tx);
 		}
 		
 		data.put("partidetails", participantData);

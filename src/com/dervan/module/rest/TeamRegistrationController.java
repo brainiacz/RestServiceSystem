@@ -22,7 +22,7 @@ public class TeamRegistrationController {
 		
 		Map<String, String> data = new HashMap<>();
 		String partId = TeamRegistration.getRegistered(record.getRecord());
-		data.put("captainID", partId);
+		data.put("captainid", partId);
 		
 		return data;
 	}

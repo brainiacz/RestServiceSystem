@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.criteria.CriteriaBuilder.In;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -17,17 +18,21 @@ import com.dervan.module.model.dao.EventData;
 import com.dervan.module.model.dao.Participant;
 import com.dervan.module.model.dao.PayRepDtl;
 import com.dervan.module.model.dao.Team;
+import com.dervan.module.payment.IndividualPayment;
 import com.dervan.module.payment.TeamPayment;
+import com.dervan.module.report.IndividualReport;
+import com.dervan.module.report.TeamReport;
 import com.dervan.module.util.dao.HibernateUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
 
-@Path("/teamPayment")
-public class TeamPaymentController {
-	
+@Path("/teamReport")
+public class TeamReportController {
+
 	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/showInfo")
 	@Produces(MediaType.APPLICATION_JSON)
-	
-public  Map<String, Map<String, Object>> getPaymentUpdated(Map<String, Integer> inputData){
+	@Consumes(MediaType.APPLICATION_JSON)
+	public  Map<String, Map<String, Object>> getReportData(Map<String, Integer> inputData) throws JsonProcessingException{
 		
 		
 		Session session  = HibernateUtil.getSessionFactory().openSession();
@@ -55,6 +60,26 @@ public  Map<String, Map<String, Object>> getPaymentUpdated(Map<String, Integer> 
 		parentData.put("record", data);
 				
 		return parentData;
+	}
+	
+	
+	@POST
+	@Path("/changeInfo")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Map<String, Object> changeReportedInfo(Map<String, String> inputData ){
+
+		int partId = null != inputData.get("partid") ? Integer.parseInt(inputData.get("partid")) : 0;
+		String kycFlag = null != inputData.get("kycflag") ? String.valueOf(inputData.get("kycflag")) : "";
+		String reportingFlag = null != inputData.get("reportingflag") ? String.valueOf(inputData.get("reportingflag")) : "";
+		
+		
+		Session session  = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
+    	
+		Map<String, Object> dataMap = TeamReport.changeReportStatusTeam(session, tx, partId, reportingFlag, kycFlag);
+		
+		return dataMap;
 	}
 	
 	

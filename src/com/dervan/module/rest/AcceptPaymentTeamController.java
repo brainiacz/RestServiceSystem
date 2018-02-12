@@ -24,8 +24,8 @@ public class AcceptPaymentTeamController {
 	public Map<String, Object> getSuccessForPay(Map<String, String> inputData){
 		Session session  = HibernateUtil.getSessionFactory().openSession();
 		Transaction tx = session.beginTransaction();
-		int teamId = null != inputData.get("captainID") ? TeamPayment.getTeamID(Integer.parseInt(inputData.get("captainID")), session, tx) : 0;
-		int captainId = null != inputData.get("captainID") ? Integer.parseInt(inputData.get("captainID")) : 0;
+		int teamId = null != inputData.get("captainid") ? TeamPayment.getTeamID(Integer.parseInt(inputData.get("captainid")), session, tx) : 0;
+		int captainId = null != inputData.get("captainid") ? Integer.parseInt(inputData.get("captainid")) : 0;
 		int amount = null != inputData.get("amt") ? Integer.parseInt(inputData.get("amt")) : 0;
 		String user = null != inputData.get("user") ? inputData.get("user") : "";
 		Map<String, Object> mapData = TeamPayment.getPayment(teamId, captainId, amount, user );		

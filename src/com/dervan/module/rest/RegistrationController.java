@@ -23,7 +23,7 @@ public class RegistrationController {
 		
 		Map<String, String> data = new HashMap<>();
 		String partId = IndividualRegistration.getRegistered(record.getRecord());
-		data.put("partId", partId);
+		data.put("partid", partId);
 		
 		return data;
 	}
