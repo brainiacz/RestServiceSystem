@@ -46,7 +46,7 @@ public class TeamPayment {
 		return team;
 	}
 	
-	/*public static PayRepDtl getPaymentDetails(int captainID, Session session, Transaction transaction){
+	public static PayRepDtl getPaymentDetails(int captainID, Session session, Transaction transaction){
 		
 		SQLQuery query2 = session.createSQLQuery("SELECT * FROM PAY_REP_DTLS WHERE PART_TEAM_ID IN (SELECT TEAM_ID FROM TEAM WHERE CAPTAIN_PART_ID ="+ captainID+")");
 		List<Object[]> dataList = query2.list();
@@ -59,11 +59,13 @@ public class TeamPayment {
 			dtls.setPayFlag(null != row[3] ? row[3].toString() : "");
 			dtls.setPayUsr(null != row[5] ? row[5].toString() : "");
 			dtls.setReceiptNbr(null != row[6] ? Integer.valueOf(row[1].toString()) : -1);
+			dtls.setKycCheck(null != row[11] ? row[11].toString() : "N");
+			dtls.setReportedFlg(null != row[8] ? row[8].toString() : "N");
 			break;
 		}
 		
 		return dtls;
-	}*/
+	}
 	
 	public static List<EventData> getTeamGameData(int captainID, Session session, Transaction transaction){
 		

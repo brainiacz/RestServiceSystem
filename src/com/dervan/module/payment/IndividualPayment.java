@@ -73,6 +73,8 @@ public class IndividualPayment {
 			dtls.setPayFlag(null != row[3] ? row[3].toString() : "");
 			dtls.setPayUsr(null != row[5] ? row[5].toString() : "");
 			dtls.setReceiptNbr(null != row[6] ? Integer.valueOf(row[1].toString()) : -1);
+			dtls.setKycCheck(null != row[11] ? row[11].toString() : "N");
+			dtls.setReportedFlg(null != row[8] ? row[8].toString() : "N");
 			break;
 		}
 		

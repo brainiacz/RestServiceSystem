@@ -44,18 +44,20 @@ public class TeamReportController {
 		List<EventData> teamGameData = null;
 		Participant captainData = null;
 		List<Participant> participantDataList = null;
+		PayRepDtl payDetails = null;
 		if(inputData != null){
-			
-			
 			teamData = TeamPayment.getTeamData(inputData.get("captainid"), session, tx);
 			teamGameData = TeamPayment.getTeamGameData(inputData.get("captainid"), session, tx);
 			captainData = TeamPayment.getCaptainData(inputData.get("captainid"), session, tx);
 			participantDataList = TeamPayment.getParticipantsData(inputData.get("captainid"), session, tx);
+			payDetails = TeamPayment.getPaymentDetails(inputData.get("captainid"), session, tx);
 		}
 		
 		data.put("partidetails", getTeamCaptainData(teamData, captainData));
 		data.put("tm", participantDataList);
 		data.put("games",teamGameData);
+		data.put("reportingflag", payDetails.getReportedFlg());
+		data.put("kyccheck", payDetails.getKycCheck());
 		
 		parentData.put("record", data);
 				

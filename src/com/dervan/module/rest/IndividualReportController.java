@@ -16,6 +16,7 @@ import org.hibernate.Transaction;
 
 import com.dervan.module.model.dao.EventData;
 import com.dervan.module.model.dao.Participant;
+import com.dervan.module.model.dao.PayRepDtl;
 import com.dervan.module.payment.IndividualPayment;
 import com.dervan.module.report.IndividualReport;
 import com.dervan.module.report.TeamReport;
@@ -37,17 +38,22 @@ public class IndividualReportController {
     	Map<String, Map<String, Object>> parentMap = new HashMap<String, Map<String,Object>>();
 		Participant participantData = null;
 		List<EventData> partiGameData = null;
+		PayRepDtl payDtls = null;
 		
 		if(inputData != null){
 			
 			participantData = IndividualPayment.getParticipant(inputData.get("partid"), session, tx);
 			partiGameData = IndividualPayment.getPartiGameData(inputData.get("partid"), session, tx);
+			payDtls = IndividualPayment.getPaymentDetails(inputData.get("partid"), session, tx);
 		}
 		
 		data.put("partidetails", participantData);
 		//data.put("payData", payData);
 		data.put("games", partiGameData);
+		data.put("reportingflag", payDtls.getReportedFlg());
+		data.put("kycheck", payDtls.getKycCheck());
 		parentMap.put("record", data);
+		
 				
 		return parentMap;
 	}
