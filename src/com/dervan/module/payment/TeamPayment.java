@@ -97,7 +97,7 @@ public class TeamPayment {
 		Participant captainData = new Participant();
 		
 		for(Object[] row : dataList ){
-			captainData.setPartId(null != row[0] ? Integer.parseInt(row[0].toString()) : -1);
+			captainData.setPartid(null != row[0] ? Integer.parseInt(row[0].toString()) : -1);
 			captainData.setFirstname(null != row[1] ? row[1].toString() : "");
 			captainData.setMiddlename(null != row[2] ? row[2].toString() : "");
 			captainData.setLastname(null != row[3] ? row[3].toString() : "");
@@ -141,7 +141,7 @@ public class TeamPayment {
 			
 			Participant participant = new Participant();
 			
-			participant.setPartId(null != row[0] ? Integer.parseInt(row[0].toString()) : -1);
+			participant.setPartid(null != row[0] ? Integer.parseInt(row[0].toString()) : -1);
 			participant.setFirstname(null != row[1] ? row[1].toString() : "");
 			participant.setMiddlename(null != row[2] ? row[2].toString() : "");
 			participant.setLastname(null != row[3] ? row[3].toString() : "");
@@ -188,7 +188,7 @@ public class TeamPayment {
 	}
 	
 	
-	public static Map<String, Object> getPayment(int teamId, int captainId, int amount, String user){
+	public static Map<String, Object> getPayment(int teamId, int captainId, int amount, String user, String payMode, String refNumber){
 		
 		boolean isInserted = false;
 		Map<String, Object> data = new HashMap<>();
@@ -209,13 +209,15 @@ public class TeamPayment {
 		if (null != payFlag && !payFlag.equals("Y")) {
 			ReceiptMaster master = getReceipt(session, teamId);
 			Query query1 = session.createSQLQuery(
-					"UPDATE PAY_REP_DTLS SET PAY_FLAG= :PAYFLAG, PAY_USR = :PAYUSR, PAY_AMT = :PAYAMT, PAY_DT = :PAYDT, RECEIPT_NBR = :RCTNBR WHERE PART_TEAM_ID  = :TEAMID");
+					"UPDATE PAY_REP_DTLS SET PAY_FLAG= :PAYFLAG, PAY_USR = :PAYUSR, PAY_AMT = :PAYAMT, PAY_DT = :PAYDT, RECEIPT_NBR = :RCTNBR, PAYMENT_MODE =:PAYMODE ,REF_NUMBER= :REFNO WHERE PART_TEAM_ID  = :TEAMID");
 			query1.setParameter("PAYFLAG", "Y");
 			query1.setParameter("TEAMID", teamId);
 			query1.setParameter("PAYDT", CommonUtilities.getDate());
 			query1.setParameter("RCTNBR", master.getReceiptNbr());
 			query1.setParameter("PAYUSR", user);
 			query1.setParameter("PAYAMT", amount);
+			query1.setParameter("PAYMODE", payMode);
+			query1.setParameter("REFNO", refNumber);
 			int result = query1.executeUpdate();
 			if (result > 0) {
 				isInserted = true;

@@ -27,7 +27,7 @@ public class IndividualReport {
 		Participant participant = new Participant();
 
 		for (Object[] row : dataList) {
-			participant.setPartId(null != row[0] ? Integer.parseInt(row[0].toString()) : -1);
+			participant.setPartid(null != row[0] ? Integer.parseInt(row[0].toString()) : -1);
 			participant.setFirstname(null != row[1] ? row[1].toString() : "");
 			participant.setMiddlename(null != row[2] ? row[2].toString() : "");
 			participant.setLastname(null != row[3] ? row[3].toString() : "");

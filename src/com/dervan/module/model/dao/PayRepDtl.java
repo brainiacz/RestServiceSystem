@@ -61,6 +61,12 @@ public class PayRepDtl implements Serializable {
 	@Column(name="REPORTED_FLG")
 	private String reportedFlg;
 
+	@Column(name="PAYMENT_MODE")
+	private String paymentMode;
+	
+	@Column(name="REF_NUMBER")
+	private String referenceNumber;
+	
 	public PayRepDtl() {
 	}
 
@@ -160,4 +166,33 @@ public class PayRepDtl implements Serializable {
 		this.reportedFlg = reportedFlg;
 	}
 
+	/**
+	 * @return the paymentMode
+	 */
+	public String getPaymentMode() {
+		return paymentMode;
+	}
+
+	/**
+	 * @param paymentMode the paymentMode to set
+	 */
+	public void setPaymentMode(String paymentMode) {
+		this.paymentMode = paymentMode;
+	}
+
+	/**
+	 * @return the referenceNumber
+	 */
+	public String getReferenceNumber() {
+		return referenceNumber;
+	}
+
+	/**
+	 * @param referenceNumber the referenceNumber to set
+	 */
+	public void setReferenceNumber(String referenceNumber) {
+		this.referenceNumber = referenceNumber;
+	}
+	
+	
 }

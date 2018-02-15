@@ -13,12 +13,14 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 
 /**
  * The persistent class for the game database table.
  * 
  */
+
 @Entity
 @NamedQuery(name="Game.findAll", query="SELECT g FROM Game g")
 @JsonInclude(Include.NON_NULL)

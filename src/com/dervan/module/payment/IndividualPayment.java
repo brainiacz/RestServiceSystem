@@ -29,7 +29,7 @@ public class IndividualPayment {
 		Participant participant = new Participant();
 		
 		for(Object[] row : dataList ){
-			participant.setPartId(null != row[0] ? Integer.parseInt(row[0].toString()) : -1);
+			participant.setPartid(null != row[0] ? Integer.parseInt(row[0].toString()) : -1);
 			participant.setFirstname(null != row[1] ? row[1].toString() : "");
 			participant.setMiddlename(null != row[2] ? row[2].toString() : "");
 			participant.setLastname(null != row[3] ? row[3].toString() : "");
@@ -105,7 +105,7 @@ public class IndividualPayment {
 	}
 	
 	
-	public static Map<String, Object> getPayment(int partid, int amt, String user){
+	public static Map<String, Object> getPayment(int partid, int amt, String user, String payMode, String refNumber){
 		
 		
 		boolean isInserted = false;
@@ -128,13 +128,15 @@ public class IndividualPayment {
 		if (null != payFlag && !payFlag.equals("Y")) {
 			ReceiptMaster master = getReceipt(session, partid);
 			Query query1 = session.createSQLQuery(
-					"UPDATE PAY_REP_DTLS SET PAY_AMT = :PAYAMT, PAY_FLAG= :PAYFLAG , PAY_DT = :PAYDT, PAY_USR = :PAYUSR, RECEIPT_NBR = :RCTNBR WHERE PART_TEAM_ID  = :PARTID");
+					"UPDATE PAY_REP_DTLS SET PAY_AMT = :PAYAMT, PAY_FLAG= :PAYFLAG , PAY_DT = :PAYDT, PAY_USR = :PAYUSR, RECEIPT_NBR = :RCTNBR, PAYMENT_MODE =:PAYMODE ,REF_NUMBER= :REFNO  WHERE PART_TEAM_ID  = :PARTID");
 			query1.setParameter("PAYFLAG", "Y");
 			query1.setParameter("PAYAMT", amt);
 			query1.setParameter("PARTID", partid);
 			query1.setParameter("PAYDT", CommonUtilities.getDate());
 			query1.setParameter("RCTNBR", master.getReceiptNbr());
 			query1.setParameter("PAYUSR", user);
+			query1.setParameter("PAYMODE", payMode);
+			query1.setParameter("REFNO", refNumber);
 			int result = query1.executeUpdate();
 			if (result > 0) {
 				isInserted = true;

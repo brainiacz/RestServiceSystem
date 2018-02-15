@@ -78,7 +78,7 @@ public class TeamReport {
 		Participant captainData = new Participant();
 		
 		for(Object[] row : dataList ){
-			captainData.setPartId(null != row[0] ? Integer.parseInt(row[0].toString()) : -1);
+			captainData.setPartid(null != row[0] ? Integer.parseInt(row[0].toString()) : -1);
 			captainData.setFirstname(null != row[1] ? row[1].toString() : "");
 			captainData.setMiddlename(null != row[2] ? row[2].toString() : "");
 			captainData.setLastname(null != row[3] ? row[3].toString() : "");
@@ -122,7 +122,7 @@ public class TeamReport {
 			
 			Participant participant = new Participant();
 			
-			participant.setPartId(null != row[0] ? Integer.parseInt(row[0].toString()) : -1);
+			participant.setPartid(null != row[0] ? Integer.parseInt(row[0].toString()) : -1);
 			participant.setFirstname(null != row[1] ? row[1].toString() : "");
 			participant.setMiddlename(null != row[2] ? row[2].toString() : "");
 			participant.setLastname(null != row[3] ? row[3].toString() : "");

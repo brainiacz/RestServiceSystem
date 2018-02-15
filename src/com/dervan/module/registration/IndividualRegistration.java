@@ -28,7 +28,7 @@ public class IndividualRegistration {
 		
 		session.save(participant);
 		session.flush();
-		int partId = participant.getPartId();
+		int partId = participant.getPartid();
 		
 		
 		List<PartiGame> partiGame = getPartiGameDtls(record, partId);

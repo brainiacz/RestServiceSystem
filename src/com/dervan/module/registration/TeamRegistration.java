@@ -30,7 +30,7 @@ public class TeamRegistration {
 		Participant captain = record.getPartidetails();
 		session.save(captain);
 		session.flush();
-		int captainID = captain.getPartId();
+		int captainID = captain.getPartid();
 		
 		// Get Participants from json
 		List<Participant> participantList = record.getTm();
@@ -53,7 +53,7 @@ public class TeamRegistration {
 		for(Participant participant : participantList){
 			session.save(participant);
 			session.flush();
-			listOfPID.add(participant.getPartId());
+			listOfPID.add(participant.getPartid());
 		}
 		
 		// Insert the partID with respect to team ID

@@ -28,7 +28,10 @@ public class AcceptPaymentTeamController {
 		int captainId = null != inputData.get("captainid") ? Integer.parseInt(inputData.get("captainid")) : 0;
 		int amount = null != inputData.get("amt") ? Integer.parseInt(inputData.get("amt")) : 0;
 		String user = null != inputData.get("user") ? inputData.get("user") : "";
-		Map<String, Object> mapData = TeamPayment.getPayment(teamId, captainId, amount, user );		
+		String paymentMode = null != inputData.get("paymentmode") ? inputData.get("paymentmode") : "";
+		String refNumber = null != inputData.get("referencenumber") ? inputData.get("referencenumber") : "";
+		
+		Map<String, Object> mapData = TeamPayment.getPayment(teamId, captainId, amount, user, paymentMode, refNumber );		
 		return mapData;
 	}
 

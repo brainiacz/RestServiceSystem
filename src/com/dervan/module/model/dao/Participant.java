@@ -30,7 +30,7 @@ public class Participant implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="PART_ID")
-	private int partId;
+	private int partid;
 
 	@Column(name="ADDRESS_LINE1")
 	private String addr1;
@@ -102,17 +102,17 @@ public class Participant implements Serializable {
 	private String state;
 
 	/**
-	 * @return the partId
+	 * @return the partid
 	 */
-	public int getPartId() {
-		return partId;
+	public int getPartid() {
+		return partid;
 	}
 
 	/**
-	 * @param partId the partId to set
+	 * @param partid the partid to set
 	 */
-	public void setPartId(int partId) {
-		this.partId = partId;
+	public void setPartid(int partid) {
+		this.partid = partid;
 	}
 
 	/**
@@ -437,6 +437,7 @@ public class Participant implements Serializable {
 		this.state = state;
 	}
 
+	
 	
 		
 }
