@@ -156,6 +156,7 @@ public class UpdateDetailsController {
 		List<Participant> listOfParticipants = null;
 		int amount = 0;
 		String type = null;
+		
 		List<TeamGame> teamGameData = null;
 	
 		
@@ -171,10 +172,12 @@ public class UpdateDetailsController {
 			
 		}
 		
-		recordInner = UpdateTeamDetails.getUpdatedDetailsTeam(listOfParticipants, participant, teamGameData, session, tx);
+		int teamid = TeamPayment.getTeamID(participant.getPartid(), session, tx);
+		recordInner = UpdateTeamDetails.getUpdatedDetailsTeam(listOfParticipants, participant, teamGameData, session, tx, teamid);
 		recordInner.setAmt(amount);
 		recordInner.setType(type);
 		record.setRecord(recordInner);
+		tx.commit();
 		session.close();
 		return record;
 	}
