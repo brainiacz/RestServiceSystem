@@ -45,9 +45,6 @@ public class PayRepDtl implements Serializable {
 	@Column(name="PAY_USR")
 	private String payUsr;
 
-	@Column(name="PAYMENT_WAIVED_FLG")
-	private String paymentWaivedFlg;
-
 	@Column(name="RECEIPT_NBR")
 	private int receiptNbr;
 
@@ -126,13 +123,6 @@ public class PayRepDtl implements Serializable {
 		this.payUsr = payUsr;
 	}
 
-	public String getPaymentWaivedFlg() {
-		return this.paymentWaivedFlg;
-	}
-
-	public void setPaymentWaivedFlg(String paymentWaivedFlg) {
-		this.paymentWaivedFlg = paymentWaivedFlg;
-	}
 
 	public int getReceiptNbr() {
 		return this.receiptNbr;
