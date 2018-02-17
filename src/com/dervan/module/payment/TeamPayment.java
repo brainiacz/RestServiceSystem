@@ -118,9 +118,9 @@ public class TeamPayment {
 			captainData.setContactno(null != row[18] ? row[18].toString() : "");
 			captainData.setAlternativeno(null != row[19] ? row[19].toString() : "");
 			captainData.setEmail(null != row[20] ? row[20].toString() : "");
-			captainData.setBloodgroup(null != row[21] ? row[21].toString() : "");
-			captainData.setIdentitytype(null != row[22] ? row[22].toString() : "");
-			captainData.setIdentitynumber(null != row[23] ? row[23].toString() : "");
+			captainData.setBloodgroup(null != row[26] ? row[26].toString() : "");
+			captainData.setIdentitytype(null != row[28] ? row[28].toString() : "");
+			captainData.setIdentitynumber(null != row[27] ? row[27].toString() : "");
 
 			
 			break;
@@ -162,9 +162,9 @@ public class TeamPayment {
 			participant.setContactno(null != row[18] ? row[18].toString() : "");
 			participant.setAlternativeno(null != row[19] ? row[19].toString() : "");
 			participant.setEmail(null != row[20] ? row[20].toString() : "");
-			participant.setBloodgroup(null != row[21] ? row[21].toString() : "");
-			participant.setIdentitytype(null != row[22] ? row[22].toString() : "");
-			participant.setIdentitynumber(null != row[23] ? row[23].toString() : "");
+			participant.setBloodgroup(null != row[26] ? row[26].toString() : "");
+			participant.setIdentitytype(null != row[28] ? row[28].toString() : "");
+			participant.setIdentitynumber(null != row[27] ? row[27].toString() : "");
 
 			participantDataList.add(participant);
 			participant = null;

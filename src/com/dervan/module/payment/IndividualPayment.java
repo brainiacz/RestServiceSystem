@@ -50,9 +50,9 @@ public class IndividualPayment {
 			participant.setContactno(null != row[18] ? row[18].toString() : "");
 			participant.setAlternativeno(null != row[19] ? row[19].toString() : "");
 			participant.setEmail(null != row[20] ? row[20].toString() : "");
-			participant.setBloodgroup(null != row[21] ? row[21].toString() : "");
-			participant.setIdentitytype(null != row[22] ? row[22].toString() : "");
-			participant.setIdentitynumber(null != row[23] ? row[23].toString() : "");
+			participant.setBloodgroup(null != row[26] ? row[26].toString() : "");
+			participant.setIdentitytype(null != row[28] ? row[28].toString() : "");
+			participant.setIdentitynumber(null != row[27] ? row[27].toString() : "");
 			
 			break;
 		}
