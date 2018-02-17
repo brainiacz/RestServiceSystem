@@ -31,7 +31,7 @@ public class ReceiptMaster implements Serializable {
 	private int receiptId;
 
 	@Column(name="RECEIPT_NBR")
-	private int receiptNbr;
+	private String receiptNbr;
 
 	public ReceiptMaster() {
 	}
@@ -68,11 +68,11 @@ public class ReceiptMaster implements Serializable {
 		this.receiptId = receiptId;
 	}
 
-	public int getReceiptNbr() {
+	public String getReceiptNbr() {
 		return this.receiptNbr;
 	}
 
-	public void setReceiptNbr(int receiptNbr) {
+	public void setReceiptNbr(String receiptNbr) {
 		this.receiptNbr = receiptNbr;
 	}
 

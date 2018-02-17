@@ -58,6 +58,7 @@ public class TeamReportController {
 		data.put("games",teamGameData);
 		data.put("reportingflag", payDetails.getReportedFlg());
 		data.put("kyccheck", payDetails.getKycCheck());
+		data.put("paymentflag", payDetails.getPayFlag());
 		
 		parentData.put("record", data);
 				

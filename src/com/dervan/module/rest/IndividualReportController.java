@@ -52,6 +52,7 @@ public class IndividualReportController {
 		data.put("games", partiGameData);
 		data.put("reportingflag", payDtls.getReportedFlg());
 		data.put("kycheck", payDtls.getKycCheck());
+		data.put("paymentflag", payDtls.getPayFlag());
 		parentMap.put("record", data);
 		
 				
