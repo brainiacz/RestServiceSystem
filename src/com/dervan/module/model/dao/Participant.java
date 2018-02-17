@@ -1,6 +1,7 @@
 package com.dervan.module.model.dao;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -100,6 +103,95 @@ public class Participant implements Serializable {
 
 	@Column(name="STATE")
 	private String state;
+	
+	@Column(name="bankDetails")
+	private String bankdetails;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name="InsertedDate")
+	private Date inserteddate;
+	
+	@Temporal(TemporalType.DATE)
+	@Column(name="updatedDate")
+	private Date updateddate;
+	
+	@Column(name="insertedUser")
+	private String insertedUser;
+	
+	@Column(name="updatedUser")
+	private String updatedUser;
+	
+	
+	
+	/**
+	 * @return the bankdetails
+	 */
+	public String getBankdetails() {
+		return bankdetails;
+	}
+
+	/**
+	 * @param bankdetails the bankdetails to set
+	 */
+	public void setBankdetails(String bankdetails) {
+		this.bankdetails = bankdetails;
+	}
+
+	/**
+	 * @return the inserteddate
+	 */
+	public Date getInserteddate() {
+		return inserteddate;
+	}
+
+	/**
+	 * @param inserteddate the inserteddate to set
+	 */
+	public void setInserteddate(Date inserteddate) {
+		this.inserteddate = inserteddate;
+	}
+
+	/**
+	 * @return the updateddate
+	 */
+	public Date getUpdateddate() {
+		return updateddate;
+	}
+
+	/**
+	 * @param updateddate the updateddate to set
+	 */
+	public void setUpdateddate(Date updateddate) {
+		this.updateddate = updateddate;
+	}
+
+	/**
+	 * @return the insertedUser
+	 */
+	public String getInsertedUser() {
+		return insertedUser;
+	}
+
+	/**
+	 * @param insertedUser the insertedUser to set
+	 */
+	public void setInsertedUser(String insertedUser) {
+		this.insertedUser = insertedUser;
+	}
+
+	/**
+	 * @return the updatedUser
+	 */
+	public String getUpdatedUser() {
+		return updatedUser;
+	}
+
+	/**
+	 * @param updatedUser the updatedUser to set
+	 */
+	public void setUpdatedUser(String updatedUser) {
+		this.updatedUser = updatedUser;
+	}
 
 	/**
 	 * @return the partid

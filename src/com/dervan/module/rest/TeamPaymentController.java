@@ -62,6 +62,7 @@ public  Map<String, Map<String, Object>> getPaymentUpdated(Map<String, Integer> 
 		
 		Participant participant = new Participant();
 		
+		participant.setPartid(participantData.getPartid());
 		participant.setFirstname(participantData.getFirstname());
 		participant.setMiddlename(participantData.getMiddlename());
 		participant.setLastname(participantData.getLastname());
@@ -69,12 +70,13 @@ public  Map<String, Map<String, Object>> getPaymentUpdated(Map<String, Integer> 
 		participant.setAddr2(participantData.getAddr2());
 		participant.setState(participantData.getState());
 		participant.setCity(participantData.getCity());
-		participant.setNameOfSchoolOrClub(teamData.getTeamSchool());
-		participant.setAddressOfSchoolOrClub(teamData.getTeamSchoolAdd1());
-		participant.setAddress2OfSchoolOrClub(teamData.getTeamSchoolAdd2());
-		participant.setSchoolstate(teamData.getTeamSchoolState());
-		participant.setSchoolcity(teamData.getTeamSchoolCity());
-		participant.setSchoolpincode(teamData.getTeamSchoolPincode());
+		participant.setPincode(participantData.getPincode());
+		participant.setNameOfSchoolOrClub(participantData.getNameOfSchoolOrClub());
+		participant.setAddressOfSchoolOrClub(participantData.getAddressOfSchoolOrClub());
+		participant.setAddress2OfSchoolOrClub(participantData.getAddress2OfSchoolOrClub());
+		participant.setSchoolstate(participantData.getSchoolstate());
+		participant.setSchoolcity(participantData.getSchoolcity());
+		participant.setSchoolpincode(participantData.getSchoolpincode());
 		participant.setDob(participantData.getDob());
 		participant.setContactno(participantData.getContactno());
 		participant.setAlternativeno(participantData.getAlternativeno());
