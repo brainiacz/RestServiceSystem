@@ -1,5 +1,6 @@
 package com.dervan.module.rest;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,17 +45,17 @@ public class UpdateDetailsController {
     	Map<String, Object> data = new HashMap<>();
     	Map<String, Map<String, Object>> parentMap = new HashMap<String, Map<String,Object>>();
 		Participant participantData = null;
-		List<EventData> partiGameData = null;
+		//List<EventData> partiGameData = null;
 		
 		if(inputData != null){
 			
 			participantData = IndividualPayment.getParticipant(inputData.get("partid"), session, tx);
-			partiGameData = IndividualPayment.getPartiGameData(inputData.get("partid"), session, tx);
+			//partiGameData = IndividualPayment.getPartiGameData(inputData.get("partid"), session, tx);
 		}
 		
 		data.put("partidetails", participantData);
 		//data.put("payData", payData);
-		data.put("games", partiGameData);
+		//data.put("games", partiGameData);
 		parentMap.put("record", data);
 		
 		tx.commit();
@@ -77,7 +78,7 @@ public class UpdateDetailsController {
 		Participant participant = null;
 		String amount = null;
 		String type = null;
-		List<Game> partiGameData = null;
+		//List<Game> partiGameData = null;
 	
 		
 		
@@ -85,20 +86,105 @@ public class UpdateDetailsController {
 		if(inputData != null){
 			record = (Record) inputData;
 			participant = record.getRecord().getPartidetails();
-			partiGameData = record.getRecord().getGames();
-			amount = record.getRecord().getAmt();
-			type = record.getRecord().getType();
+			//partiGameData = record.getRecord().getGames();
+			//amount = record.getRecord().getAmt();
+			//type = record.getRecord().getType();
 			
 		}
 		
-		recordInner = UpdateIndividualDetails.getUpdatedDetailsInd(participant, partiGameData, session, tx);
-		recordInner.setAmt(amount);
-		recordInner.setType(type);
+		recordInner = UpdateIndividualDetails.getUpdatedDetailsInd(participant,/* partiGameData, */session, tx);
+		//recordInner.setAmt(amount);
+		//recordInner.setType(type);
 		record.setRecord(recordInner);
+		tx.commit();
 		return record;
 	}
 	
 	
+	@POST
+	@Path("/partigames")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public  Map<String, Map<String, Object>> getGamesStoredDetails(Map<String, Integer> inputData) throws JsonProcessingException{
+		
+		
+		Session session  = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
+    	Map<String, Object> data = new HashMap<>();
+    	Map<String, Map<String, Object>> parentMap = new HashMap<String, Map<String,Object>>();
+		Participant participantData = null;
+		List<EventData> partiGameData = null;
+		
+		if(inputData != null){
+			//participantData = IndividualPayment.getParticipant(inputData.get("partid"), session, tx);
+			partiGameData = IndividualPayment.getPartiGameData(inputData.get("partid"), session, tx);
+		}
+		
+		//data.put("partidetails", participantData);
+		//data.put("payData", payData);
+		data.put("games", partiGameData);
+		parentMap.put("record", data);
+		
+		tx.commit();
+		session.close();
+		
+		return parentMap;
+	}
+	
+	
+	
+	@POST
+	@Path("/partGamesUpdate")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Record updateGamesStoredDetails(Record inputData){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
+		
+		Record record = null;
+		RecordInner recordInner = new RecordInner();
+		Participant participant = null;
+		String amount = null;
+		String type = null;
+		List<Game> partiGameData = null;
+		List<TeamGame> teamGame = null;
+		type = inputData.getRecord().getType();
+		int teamid = TeamPayment.getTeamID(inputData.getRecord().getPartidetails().getPartid(), session, tx);
+		
+		
+		
+		if(inputData != null){
+			record = (Record) inputData;
+			participant = record.getRecord().getPartidetails();
+			
+			if(type.equals("IND")){
+				partiGameData = record.getRecord().getGames();
+			}else{
+				teamGame = getTeamGame(record.getRecord().getGames());
+			}
+			
+			//amount = record.getRecord().getAmt();
+			
+			
+		}
+		
+		if(type.equals("IND")){
+			recordInner = UpdateIndividualDetails.getGamesUpdatedDetailsInd(participant,partiGameData, session, tx);
+		}else{
+			teamGame = UpdateTeamDetails.getGamesListUpdate(teamid, teamGame, session, tx);
+			partiGameData = getGame(teamGame);
+		}
+		
+		recordInner.setGames(partiGameData);
+		//recordInner.setAmt(amount);
+		//recordInner.setType(type);
+		record.setRecord(recordInner);
+		tx.commit();
+		return record;
+	}
+
+	
+
 /**
  * Author : Ajinkya
  * Description : Below part of code is for team aspirants;
@@ -180,6 +266,31 @@ public class UpdateDetailsController {
 		tx.commit();
 		session.close();
 		return record;
+	}
+	
+	
+	public static List<TeamGame> getTeamGame(List<Game> games){
+		
+		List<TeamGame> teamGamesList = new ArrayList<>();
+		for(Game game : games){	
+			TeamGame teamGame = new TeamGame();
+			teamGame.setEventid(game.getEventid());
+			teamGamesList.add(teamGame);
+		}
+		
+		return teamGamesList;
+	}
+	
+	public static List<Game> getGame(List<TeamGame> games){
+		
+		List<Game> gamesList = new ArrayList<>();
+		for(TeamGame teaGame : games){	
+			Game game = new Game();
+			game.setEventid(teaGame.getEventid());
+			gamesList.add(game);
+		}
+		
+		return gamesList;
 	}
 
 }

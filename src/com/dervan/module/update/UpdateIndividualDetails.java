@@ -14,14 +14,27 @@ import com.dervan.module.utils.CommonUtilities;
 
 public class UpdateIndividualDetails {
 
-	public static RecordInner getUpdatedDetailsInd(Participant partidetails, List<Game> games, Session session,
+	public static RecordInner getUpdatedDetailsInd(Participant partidetails,/* List<Game> games,*/ Session session,
 			Transaction tx) {
 		
 		RecordInner recordInner = new RecordInner();
 	
 		Participant participant = getPartiDetailsUpdated(partidetails, session, tx);
-		List<Game> gamesData = getGamesListUpdate(participant.getPartid(), games, session, tx);
+		//List<Game> gamesData = getGamesListUpdate(participant.getPartid(), games, session, tx);
 		recordInner.setPartidetails(participant);
+		//recordInner.setGames(gamesData);
+		
+		
+		return recordInner;
+	}
+	
+	public static RecordInner getGamesUpdatedDetailsInd(Participant participant,   List<Game> games, Session session,Transaction tx) {
+		
+		RecordInner recordInner = new RecordInner();
+	
+		//Participant participant = getPartiDetailsUpdated(partidetails, session, tx);
+		List<Game> gamesData = getGamesListUpdate(participant.getPartid(), games, session, tx);
+		//recordInner.setPartidetails(participant);
 		recordInner.setGames(gamesData);
 		
 		
@@ -61,7 +74,7 @@ public class UpdateIndividualDetails {
 		if(result > 0){
 			return partidetails;
 		}
-		return null;
+		return partidetails;
 	}
 	
 	public static List<Game> getGamesListUpdate(int partid, List<Game> gamedata, Session session, Transaction tx){
