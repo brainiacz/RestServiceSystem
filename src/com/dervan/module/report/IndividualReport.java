@@ -172,8 +172,6 @@ public class IndividualReport {
 			break;
 		}
 
-		session = HibernateUtil.getSessionFactory().openSession();
-		tx = session.beginTransaction();
 
 		if (!repFlag.equals("Y") && !kycFlag.equals("Y") && reportedFlag.equals("Y") && KYCflag.equals("Y")) {
 			Query query1 = session.createSQLQuery(

@@ -54,7 +54,7 @@ public class IndividualReportController {
 		data.put("kycheck", payDtls.getKycCheck());
 		data.put("paymentflag", payDtls.getPayFlag());
 		parentMap.put("record", data);
-		
+		session.close();
 				
 		return parentMap;
 	}

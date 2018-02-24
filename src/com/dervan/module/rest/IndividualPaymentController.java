@@ -47,7 +47,7 @@ public class IndividualPaymentController {
 		//data.put("payData", payData);
 		data.put("games", partiGameData);
 		parentMap.put("record", data);
-				
+		session.close();		
 		return parentMap;
 	}
 	

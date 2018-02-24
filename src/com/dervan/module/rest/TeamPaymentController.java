@@ -53,7 +53,7 @@ public  Map<String, Map<String, Object>> getPaymentUpdated(Map<String, Integer> 
 		data.put("games",teamGameData);
 		
 		parentData.put("record", data);
-				
+		session.close();
 		return parentData;
 	}
 	

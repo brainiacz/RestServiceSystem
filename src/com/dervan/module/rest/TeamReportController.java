@@ -61,7 +61,7 @@ public class TeamReportController {
 		data.put("paymentflag", payDetails.getPayFlag());
 		
 		parentData.put("record", data);
-				
+		session.close();
 		return parentData;
 	}
 	
