@@ -31,7 +31,8 @@ public class AcceptPaymentTeamController {
 		String paymentMode = null != inputData.get("paymentmode") ? inputData.get("paymentmode") : "";
 		String refNumber = null != inputData.get("referencenumber") ? inputData.get("referencenumber") : "";
 		
-		Map<String, Object> mapData = TeamPayment.getPayment(teamId, captainId, amount, user, paymentMode, refNumber );		
+		Map<String, Object> mapData = TeamPayment.getPayment(teamId, captainId, amount, user, paymentMode, refNumber );	
+		session.close();
 		return mapData;
 	}
 

@@ -181,6 +181,7 @@ public class UpdateDetailsController {
 		//recordInner.setType(type);
 		record.setRecord(recordInner);
 		tx.commit();
+		session.close();
 		return record;
 	}
 
