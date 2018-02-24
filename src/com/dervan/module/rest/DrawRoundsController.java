@@ -134,17 +134,17 @@ public class DrawRoundsController {
 	private Map<Integer,ArrayList<Integer>> getRoundStastic(int threshold){
 		Map<Integer,ArrayList<Integer>> partTeamSize = null;
 		if(threshold == 2){
-			//partTeamSize = RoundStatistic.partTeam2inSize;
+			partTeamSize = RoundStatistic.partTeam2inSize;
 		}else if(threshold == 4){
 			partTeamSize = RoundStatistic.partTeam4inSize;
 		}else if(threshold == 8){
 			partTeamSize = RoundStatistic.partTeam8inSize;
 		}else if(threshold == 16){
-			//partTeamSize = RoundStatistic.partTeam16inSize;
+			partTeamSize = RoundStatistic.partTeam16inSize;
 		}else if(threshold == 32){
-			//partTeamSize = RoundStatistic.partTeam32inSize;
+			partTeamSize = RoundStatistic.partTeam32inSize;
 		}else if(threshold == 64){
-			//partTeamSize = RoundStatistic.partTeam64inSize;
+			partTeamSize = RoundStatistic.partTeam64inSize;
 		}
 		return partTeamSize;
 	}
