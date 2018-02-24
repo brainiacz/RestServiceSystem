@@ -49,6 +49,7 @@ public class DrawRoundsController {
 			List<DrawRound> teamList = DrawRoundsImplementor.getTeamDetails(null != request.get("gameId") ? request.get("gameId") : -1, session);
 			partiTeamDtl.put("details", teamList);
 		}
+		session.close();
 		return partiTeamDtl;
 	}
 	
