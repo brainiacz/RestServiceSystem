@@ -69,7 +69,7 @@ public class TeamPayment {
 	
 	public static List<EventData> getTeamGameData(int captainID, Session session, Transaction transaction){
 		
-		SQLQuery query1 = session.createSQLQuery("SELECT GAME_ID, DISCIPLINE, AGE_GRP, CATEGORY, EVENT FROM SPORT_DATABASE.GAME WHERE GAME_ID IN (SELECT GAME_ID FROM TEAM_GAME WHERE TEAM_ID IN (SELECT TEAM_ID FROM TEAM WHERE CAPTAIN_PART_ID ="+ captainID+"))");
+		SQLQuery query1 = session.createSQLQuery("SELECT GAME_ID, DISCIPLINE, AGE_GRP, CATEGORY, EVENT FROM GAME WHERE GAME_ID IN (SELECT GAME_ID FROM TEAM_GAME WHERE TEAM_ID IN (SELECT TEAM_ID FROM TEAM WHERE CAPTAIN_PART_ID ="+ captainID+"))");
 		List<Object[]> dataList = query1.list();
 		
 		List<EventData> teamGameData  = new ArrayList<>();

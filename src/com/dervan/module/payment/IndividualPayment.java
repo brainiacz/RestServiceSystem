@@ -83,7 +83,7 @@ public class IndividualPayment {
 	
 	public static List<EventData> getPartiGameData(int partId, Session session, Transaction transaction){
 		
-		SQLQuery query1 = session.createSQLQuery("SELECT GAME_ID, DISCIPLINE, AGE_GRP, CATEGORY, EVENT FROM SPORT_DATABASE.GAME WHERE GAME_ID IN (SELECT GAME_ID FROM PARTI_GAME WHERE PART_ID = "+partId+")");
+		SQLQuery query1 = session.createSQLQuery("SELECT GAME_ID, DISCIPLINE, AGE_GRP, CATEGORY, EVENT FROM GAME WHERE GAME_ID IN (SELECT GAME_ID FROM PARTI_GAME WHERE PART_ID = "+partId+")");
 		
 		List<Object[]> dataList = query1.list();
 		
