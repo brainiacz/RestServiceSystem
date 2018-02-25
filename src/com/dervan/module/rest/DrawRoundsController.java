@@ -1,9 +1,7 @@
 package com.dervan.module.rest;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,15 +15,12 @@ import javax.ws.rs.core.MediaType;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.json.JSONArray;
 
 import com.dervan.module.model.dao.DrawRound;
 import com.dervan.module.service.DrawRoundsImplementor;
 import com.dervan.module.service.RoundStatistic;
 import com.dervan.module.util.dao.HibernateUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 @Path("/drawround/")
 public class DrawRoundsController {
@@ -49,7 +44,6 @@ public class DrawRoundsController {
 			List<DrawRound> teamList = DrawRoundsImplementor.getTeamDetails(null != request.get("gameId") ? request.get("gameId") : -1, session);
 			partiTeamDtl.put("details", teamList);
 		}
-		session.close();
 		return partiTeamDtl;
 	}
 	
@@ -146,21 +140,10 @@ public class DrawRoundsController {
 			partTeamSize = RoundStatistic.partTeam32inSize;
 		}else if(threshold == 64){
 			partTeamSize = RoundStatistic.partTeam64inSize;
+		}else if(threshold == 128){
+			partTeamSize = RoundStatistic.partTeam128inSize;
 		}
 		return partTeamSize;
 	}
-	
-//	public static void main(String args[]){
-//		int i = 64;
-//		Map<Integer,Integer> partTeam4inSize = null;
-//		if(i ==1){
-//		partTeam4inSize = RoundStatistic.partTeam4inSize;
-//		}else if(i ==64){
-//		partTeam4inSize = RoundStatistic.partTeam64inSize;
-//		}
-//		
-//		
-//		System.out.println("....." + partTeam4inSize);
-//	}
 	
 }
